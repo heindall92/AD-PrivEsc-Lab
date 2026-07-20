@@ -17,8 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { usePrivEscData } from "@/lib/privesc-data";
 import { HomeTutorial } from "@/components/home-tutorial";
-import { HeroMotion } from "@/components/hero-motion";
-import { ThemeLangToggle } from "@/components/theme-lang-toggle";
+import { HeroStage } from "@/components/hero-stage";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -92,111 +91,15 @@ function HomePage() {
     : { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } };
 
   return (
-    <div className="relative -mx-4 -my-6 space-y-16 pb-20 sm:-mx-6 lg:-mx-8">
-      {/* ================= HERO ================= */}
-      <section className="relative isolate overflow-hidden border-b border-border/50 px-4 pt-16 pb-20 sm:px-6 sm:pt-24 sm:pb-28 lg:px-8 lg:pt-28">
-        <div className="hero-ambient" aria-hidden />
+    <div className="relative pb-20">
+      {/* First composition: banner edge-to-edge in the content column */}
+      <HeroStage />
 
-        <div className="absolute right-4 top-8 z-20 sm:right-6 lg:right-8 lg:top-10">
-          <div className="glass-surface-strong rounded-full px-3 py-2 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)]">
-            <ThemeLangToggle size="md" />
-          </div>
-        </div>
-
-        <div className="relative mx-auto max-w-7xl">
-          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 xl:gap-16">
-            <div className="min-w-0">
-          <motion.p
+      <div className="mt-12 space-y-16 px-4 md:px-8">
+      <motion.div
             {...fade}
-            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-            className="eyebrow text-primary/90"
-          >
-            {t("home.badge")}
-          </motion.p>
-
-          <motion.h1
-            {...fade}
-            transition={{ duration: 0.6, delay: 0.05, ease: [0.25, 0.1, 0.25, 1] }}
-            className="mt-6 max-w-4xl text-[clamp(2.25rem,5.5vw,4.75rem)] font-semibold leading-[1.04] tracking-[-0.035em] text-foreground"
-          >
-            {t("home.title1")}{" "}
-            <span className="text-accent-line">{t("home.title2")}</span>
-          </motion.h1>
-
-          <motion.p
-            {...fade}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-4 max-w-2xl text-xl font-medium tracking-[-0.02em] text-foreground/55 sm:text-2xl"
-          >
-            {t("home.title3")}
-          </motion.p>
-
-          <motion.p
-            {...fade}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="mt-8 max-w-xl text-base leading-[1.7] text-muted-foreground sm:text-lg"
-          >
-            {t("home.subtitle")}
-          </motion.p>
-
-          <motion.div
-            {...fade}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-10 flex flex-wrap items-center gap-3"
-          >
-            <Button asChild size="lg" className="h-11 gap-2 rounded-lg px-6 text-sm font-medium">
-              <Link to="/curso">
-                {t("home.cta.start")}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="h-11 gap-2 rounded-lg border-border/80 bg-transparent px-6 text-sm font-medium"
-            >
-              <Link to="/mapa">
-                <Table2 className="h-4 w-4" />
-                {t("home.cta.explore")}
-              </Link>
-            </Button>
-          </motion.div>
-
-          <motion.dl
-            {...fade}
-            transition={{ duration: 0.5, delay: 0.28 }}
-            className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border/60 bg-border/40 sm:grid-cols-4"
-          >
-            {[
-              { k: String(vectors.length), v: t("home.stat.cases") },
-              { k: String(groups.length), v: t("home.stat.groups") },
-              { k: "4", v: t("home.stat.steps") },
-              { k: "100%", v: t("home.stat.edu") },
-            ].map((s) => (
-              <div key={s.v} className="bg-card px-5 py-5">
-                <dt className="font-mono text-2xl font-semibold tracking-tight text-foreground">{s.k}</dt>
-                <dd className="mt-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                  {s.v}
-                </dd>
-              </div>
-            ))}
-          </motion.dl>
-            </div>
-
-            <motion.div
-              {...fade}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-              className="relative mx-auto w-full max-w-[520px] lg:max-w-none lg:justify-self-end"
-            >
-              <HeroMotion />
-            </motion.div>
-          </div>
-
-          <motion.div
-            {...fade}
-            transition={{ duration: 0.6, delay: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-            className="panel-elevated relative mt-16 overflow-hidden rounded-2xl"
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="panel-elevated relative mx-auto max-w-7xl overflow-hidden rounded-2xl"
             role="img"
             aria-label="Ejemplo de whoami /priv y firma de Kerberoasting en un laboratorio autorizado"
           >
@@ -230,8 +133,6 @@ function HomePage() {
               ))}
             </div>
           </motion.div>
-        </div>
-      </section>
 
       {/* ================= ETHICAL WARNING ================= */}
       <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -407,6 +308,7 @@ function HomePage() {
           </motion.div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

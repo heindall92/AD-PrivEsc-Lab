@@ -14,8 +14,8 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
-const STORAGE_KEY = "adcs-lab-theme";
-const ACCENT_KEY = "adcs-lab-accent";
+const STORAGE_KEY = "ad-privesc-lab-theme";
+const ACCENT_KEY = "ad-privesc-lab-accent";
 
 function applyTheme(theme: Theme) {
   if (typeof document === "undefined") return;
@@ -26,18 +26,17 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
+  // Lab default: dark + blue (hero brand). Persisted prefs override after first visit.
   const [theme, setThemeState] = useState<Theme>("dark");
-  const [accent, setAccentState] = useState<Accent>("green");
+  const [accent, setAccentState] = useState<Accent>("blue");
 
   useEffect(() => {
     let initialTheme: Theme = "dark";
-    let initialAccent: Accent = "green";
+    let initialAccent: Accent = "blue";
     try {
       const storedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
       if (storedTheme === "light" || storedTheme === "dark") {
         initialTheme = storedTheme;
-      } else if (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: light)").matches) {
-        initialTheme = "light";
       }
 
       const storedAccent = localStorage.getItem(ACCENT_KEY);

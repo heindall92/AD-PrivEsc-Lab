@@ -3,6 +3,7 @@ import {
   Outlet,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -107,7 +108,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "512x512" },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon", sizes: "16x16 32x32" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
       {
         rel: "preconnect",
         href: "https://fonts.googleapis.com",
@@ -119,7 +122,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
       },
     ],
   }),
@@ -131,7 +134,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="es">
+    <html lang="es" className="dark" data-theme="dark" data-accent="blue" style={{ colorScheme: "dark" }}>
       <head>
         <HeadContent />
       </head>
@@ -161,6 +164,9 @@ function RootComponent() {
 
 function AppShell() {
   const { t } = useI18n();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isHome = pathname === "/";
+
   return (
     <>
       <a
@@ -171,18 +177,25 @@ function AppShell() {
       </a>
       <div className="flex min-h-dvh w-full">
         <AppSidebar />
-        <div className="flex flex-1 flex-col">
-          <header className="glass-header flex min-h-[4rem] items-center gap-3 border-b px-4 py-3 md:px-6">
-            <SidebarTrigger className="glass-control h-10 w-10 rounded-full" />
-            <span className="text-sm font-medium text-muted-foreground md:text-base">{t("app.tagline")}</span>
-            <div className="ml-auto">
-              <ThemeLangToggle size="md" />
-            </div>
-          </header>
+        <div className="flex flex-1 flex-col min-w-0">
+          {!isHome && (
+            <header className="glass-header flex min-h-[4rem] items-center gap-3 border-b px-4 py-3 md:px-6">
+              <SidebarTrigger className="glass-control h-10 w-10 rounded-full" />
+              <span className="text-sm font-medium text-muted-foreground md:text-base">{t("app.tagline")}</span>
+              <div className="ml-auto">
+                <ThemeLangToggle size="md" />
+              </div>
+            </header>
+          )}
           <main
             id="contenido-principal"
             tabIndex={-1}
-            className={cn("app-glass-shell relative flex-1 overflow-auto px-4 py-2 focus:outline-none md:px-8 md:py-4")}
+            className={cn(
+              "app-glass-shell relative flex-1 overflow-auto focus:outline-none",
+              isHome
+                ? "px-0 py-0 md:px-0 md:py-0"
+                : "px-4 py-2 md:px-8 md:py-4",
+            )}
           >
             <div className="app-glass-bg" aria-hidden>
               <div className="app-glass-mesh" />

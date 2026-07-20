@@ -46,7 +46,9 @@ const es: Dict = {
   "home.subtitle":
     "Laboratorio visual local: privilegios Se* del curso, vectores de dominio (Kerberos, ACL, delegación) y puente a ADCS-ESC-Lab. Pensado para quien empieza de cero.",
   "home.cta.start": "Empezar por el curso (11 Se*)",
+  "home.cta.startShort": "Comenzar el lab",
   "home.cta.explore": "Explorar el mapa",
+  "home.motto": "Aprende · Practica · Escala",
   "home.stat.cases": "Vectores",
   "home.stat.groups": "Categorías",
   "home.stat.steps": "Firma · ficha · practica · mitiga",
@@ -139,7 +141,9 @@ const en: Dict = {
   "home.subtitle":
     "Local visual lab: course Se* privileges, domain vectors (Kerberos, ACL, delegation), and a bridge to ADCS-ESC-Lab. Built for absolute beginners.",
   "home.cta.start": "Start with the course (11 Se*)",
+  "home.cta.startShort": "Start the lab",
   "home.cta.explore": "Explore the map",
+  "home.motto": "Learn · Practice · Escalate",
   "home.stat.cases": "Vectors",
   "home.stat.groups": "Categories",
   "home.stat.steps": "Signature · card · practice · mitigate",
