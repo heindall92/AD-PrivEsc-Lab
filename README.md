@@ -78,7 +78,7 @@ Taxonomía inspirada en el [mindmap AD 2025.03 de Orange Cyberdefense](https://o
 
 - **React 19** + **TanStack Start / Router** + **TypeScript**
 - **Tailwind CSS v4** + UI Radix / shadcn-style
-- **Motion** para microinteracciones; hero con composición HyperFrames (`hyperframes/hero-motion`) embebible / renderizable
+- **Motion** para microinteracciones; hero full-bleed con banner estático
 - Datos bilingües ES/EN en `src/lib/data/`
 - 100% local — sin backend obligatorio
 
@@ -113,17 +113,6 @@ npm run build    # build de producción
 npm run preview  # previsualizar el build
 ```
 
-### Hero HyperFrames (opcional)
-
-```bash
-cd hyperframes/hero-motion
-npm install
-npm run check    # valida la composición GSAP
-npm run render   # render a vídeo (FFmpeg vía ffmpeg-static)
-```
-
-La web embebe la composición en vivo desde `public/hyperframes/hero/` o usa el banner estático `public/hero-banner.png`.
-
 ---
 
 ## Rutas
@@ -154,11 +143,7 @@ src/
 public/
   hero-banner.png # Banner hero
   favicon.png     # Logo A del lab
-  hyperframes/    # Composición embebida del hero
-hyperframes/
-  hero-motion/    # Fuente HyperFrames (GSAP)
 Multimedia/       # Banner README, assets de marca
-docs/             # Specs / planes de diseño
 ```
 
 ---

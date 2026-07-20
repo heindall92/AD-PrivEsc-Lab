@@ -37,18 +37,11 @@ tsconfig.tsbuildinfo
 # Tooling/Workspace folders
 .lovable/
 .workspace/
-.superpowers/
 
-# HyperFrames build/render outputs
-hyperframes/hero-motion/renders/
-hyperframes/hero-motion/snapshots/
-hyperframes/**/node_modules/
-
-# Local design scratch / AI exports (keep Multimedia/ clean)
+# Local design scratch (keep Multimedia/ clean)
 /20-7-2026.png
 /este.png
 /ChatGPT*.png
 /Logo o icono del lab.png
-.impeccable.md
 
 
