@@ -9,11 +9,12 @@ import type {
 
 export const groups: PrivCategoryMeta[] = [
   {
-    id: "local",
-    label: "Local / Se*",
-    description:
-      "Empieza aquí. Son los 11 privilegios del curso: si whoami /priv muestra uno de estos, ya tienes un camino claro.",
-    vectorIds: [
+    "id": "local",
+    "label": "Local / Se*",
+    "description": "Empieza aquí: 11 privilegios del curso + misconfig locales.",
+    "color": "#38BDF8",
+    "courseTrack": true,
+    "vectorIds": [
       "se-impersonate",
       "se-assign-primary-token",
       "se-backup",
@@ -25,962 +26,3447 @@ export const groups: PrivCategoryMeta[] = [
       "se-tcb",
       "se-create-token",
       "se-security",
-    ],
-    color: "#38BDF8",
-    courseTrack: true,
+      "always-install-elevated",
+      "unquoted-service-path",
+      "weak-service-permissions",
+      "dll-hijacking",
+      "scheduled-task-abuse"
+    ]
   },
   {
-    id: "kerberos",
-    label: "Kerberos",
-    description: "Ataques al sistema de tickets de Active Directory. Apréndelos cuando ya entiendas tokens y privilegios.",
-    vectorIds: ["asrep-roast", "kerberoasting", "unconstrained-delegation", "constrained-delegation", "rbcd"],
-    color: "#A78BFA",
+    "id": "kerberos",
+    "label": "Kerberos",
+    "description": "Tickets, roasting y forja. Después de entender tokens.",
+    "color": "#A78BFA",
+    "vectorIds": [
+      "asrep-roast",
+      "kerberoasting",
+      "overpass-the-hash",
+      "pass-the-ticket",
+      "golden-ticket",
+      "silver-ticket",
+      "diamond-ticket"
+    ]
   },
   {
-    id: "acl",
-    label: "ACL / ACE",
-    description: "Permisos peligrosos sobre objetos de AD. BloodHound te ayuda a verlos como caminos.",
-    vectorIds: ["force-change-password", "generic-all", "write-dacl", "dcsync", "shadow-credentials"],
-    color: "#FB7185",
+    "id": "acl",
+    "label": "ACL / ACE",
+    "description": "Permisos peligrosos sobre objetos AD (BloodHound).",
+    "color": "#FB7185",
+    "vectorIds": [
+      "force-change-password",
+      "generic-all",
+      "generic-write",
+      "write-dacl",
+      "write-owner",
+      "add-member",
+      "owns",
+      "dcsync",
+      "shadow-credentials",
+      "adminsdholder"
+    ]
   },
   {
-    id: "delegation",
-    label: "Delegation",
-    description: "Cuando una cuenta puede actuar en nombre de otra. Muy ligado a Kerberos.",
-    vectorIds: ["unconstrained-delegation", "constrained-delegation", "rbcd"],
-    color: "#FBBF24",
+    "id": "delegation",
+    "label": "Delegation",
+    "description": "Unconstrained, Constrained y RBCD.",
+    "color": "#FBBF24",
+    "vectorIds": [
+      "unconstrained-delegation",
+      "constrained-delegation",
+      "rbcd"
+    ]
   },
   {
-    id: "coerce",
-    label: "Coerce / Relay",
-    description: "Forzar autenticación y reenviarla. Expansión del mindmap OCD.",
-    vectorIds: ["petitpotam-relay"],
-    color: "#34D399",
+    "id": "coerce",
+    "label": "Coerce / Relay",
+    "description": "Forzar auth y reenviarla (mindmap OCD).",
+    "color": "#34D399",
+    "vectorIds": [
+      "petitpotam-relay",
+      "printerbug-coerce",
+      "webdav-coerce",
+      "scf-lnk-coerce",
+      "ntlm-relay-ldap",
+      "ntlm-relay-smb"
+    ]
   },
   {
-    id: "creds",
-    label: "Credentials",
-    description: "Dónde viven contraseñas y hashes en un host o dominio.",
-    vectorIds: ["sam-lsa-dump"],
-    color: "#F472B6",
+    "id": "creds",
+    "label": "Credentials",
+    "description": "SAM, LSASS, DPAPI, GPP, LAPS, NTDS.",
+    "color": "#F472B6",
+    "vectorIds": [
+      "sam-lsa-dump",
+      "lsass-dump",
+      "dpapi-secrets",
+      "gpp-passwords",
+      "laps-read",
+      "ntds-dump"
+    ]
   },
   {
-    id: "trusts",
-    label: "Trusts",
-    description: "Relaciones de confianza entre dominios/bosques.",
-    vectorIds: ["trust-abuse"],
-    color: "#60A5FA",
+    "id": "trusts",
+    "label": "Trusts",
+    "description": "Abuso de confianzas entre dominios/bosques.",
+    "color": "#60A5FA",
+    "vectorIds": [
+      "sid-history-abuse",
+      "inter-realm-tgt",
+      "forest-trust-abuse"
+    ]
   },
   {
-    id: "adcs",
-    label: "ADCS",
-    description: "Certificados. Este lab no duplica ESC1–16: te lleva a ADCS-ESC-Lab.",
-    vectorIds: ["adcs-bridge"],
-    color: "#2DD4BF",
+    "id": "adcs",
+    "label": "ADCS",
+    "description": "Puente a ADCS-ESC-Lab (no duplica ESC).",
+    "color": "#2DD4BF",
+    "vectorIds": [
+      "adcs-bridge",
+      "adcs-enum-bridge"
+    ]
   },
   {
-    id: "sccm",
-    label: "SCCM",
-    description: "Configuración y abuso de SCCM/MECM (stub).",
-    vectorIds: ["sccm-stub"],
-    color: "#94A3B8",
+    "id": "sccm",
+    "label": "SCCM",
+    "description": "NAA, site admin y coerce SCCM.",
+    "color": "#94A3B8",
+    "vectorIds": [
+      "sccm-naa",
+      "sccm-admin-site",
+      "sccm-coerce"
+    ]
   },
   {
-    id: "mssql",
-    label: "MSSQL",
-    description: "Escalada vía SQL Server enlazado a AD (stub).",
-    vectorIds: ["mssql-stub"],
-    color: "#94A3B8",
+    "id": "mssql",
+    "label": "MSSQL",
+    "description": "xp_cmdshell, linked servers, impersonation.",
+    "color": "#94A3B8",
+    "vectorIds": [
+      "mssql-xp-cmdshell",
+      "mssql-linked-server",
+      "mssql-impersonation"
+    ]
   },
   {
-    id: "misc",
-    label: "Misc / Labs",
-    description: "Otros vectores frecuentes en labs (stub selectivo).",
-    vectorIds: ["hive-nightmare"],
-    color: "#94A3B8",
-  },
+    "id": "misc",
+    "label": "Misc / Labs",
+    "description": "MAQ, GPO abuse, CVE de lab y otros.",
+    "color": "#94A3B8",
+    "vectorIds": [
+      "hive-nightmare",
+      "machine-account-quota",
+      "nopac-concept",
+      "printnightmare-lab",
+      "gpo-abuse"
+    ]
+  }
 ];
 
 export const vectors: PrivVector[] = [
-  // ─── Curso: 11 Se* ─────────────────────────────────────────────
   {
-    id: "se-impersonate",
-    category: "local",
-    name: "SeImpersonatePrivilege",
-    shortName: "SeImpersonate",
-    tagline: "Puedes ‘ponerte la cara’ de otro usuario tras autenticarse.",
-    difficulty: "beginner",
-    oneLiner:
-      "Este privilegio permite a un proceso adoptar la identidad de un cliente que se ha autenticado (impersonation).",
-    whyItMatters:
-      "En labs, servicios como IIS o MSSQL a menudo lo tienen. Si controlas ese servicio, técnicas tipo Potato pueden llevarte a SYSTEM.",
-    signature: [
-      "whoami /priv muestra SeImpersonatePrivilege Enabled",
-      "Sueles estar en un servicio web, SQL o similar, no como Domain Admin todavía",
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    prerequisites: [
-      "Shell o código en un proceso que ya tenga el privilegio (p. ej. account de servicio)",
-      "Lab Windows autorizado",
-    ],
-    attackSteps: [
+    "attackSteps": [
       {
-        title: "Confirma el privilegio",
-        command: "whoami /priv",
-        why: "Si no está Enabled, este vector no aplica. No inventes el siguiente paso.",
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
       },
       {
-        title: "Identifica el contexto",
-        why: "Pregúntate: ¿soy un servicio? ¿Hay listeners locales? Eso orienta la técnica Potato adecuada del lab.",
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
       },
       {
-        title: "Practica en lab con una técnica Potato documentada",
-        why: "El objetivo educativo es entender el salto servicio → SYSTEM, no memorizar un exploit concreto.",
-      },
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
     ],
-    detection: [
-      "Procesos de servicio que crean tokens de SYSTEM de forma anómala",
-      "Alertas EDR sobre herramientas Potato / named pipes abusados",
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
     ],
-    hardening: [
-      "Quitar SeImpersonate a cuentas que no lo necesiten",
-      "Aislar servicios web/SQL; principio de mínimo privilegio",
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
     ],
-    tools: ["whoami", "JuicyPotato / GodPotato / PrintSpoofer (solo lab)"],
-    glossaryTerms: ["token", "impersonation", "SYSTEM"],
-    source: "course",
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-impersonate",
+    "category": "local",
+    "name": "SeImpersonatePrivilege",
+    "shortName": "SeImpersonate",
+    "tagline": "Puedes impersonar tras auth.",
+    "oneLiner": "Permite adoptar la identidad de un cliente autenticado.",
+    "whyItMatters": "Servicios IIS/SQL con Potato → SYSTEM en lab.",
+    "signature": [
+      "whoami /priv → SeImpersonate Enabled"
+    ],
+    "glossaryTerms": [
+      "token"
+    ]
   },
   {
-    id: "se-assign-primary-token",
-    category: "local",
-    name: "SeAssignPrimaryTokenPrivilege",
-    shortName: "SeAssignPrimaryToken",
-    tagline: "Puedes asignar un token como token primario a un proceso nuevo.",
-    difficulty: "beginner",
-    oneLiner:
-      "Permite crear procesos con el token de otro usuario como token principal (no solo impersonación temporal).",
-    whyItMatters:
-      "A menudo aparece junto a SeImpersonate en cuentas de servicio. Es otra puerta hacia SYSTEM en el mismo tipo de escenarios.",
-    signature: [
-      "whoami /priv → SeAssignPrimaryTokenPrivilege Enabled",
-      "Frecuente en cuentas de servicio privilegiadas localmente",
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    prerequisites: ["Privilegio presente en tu token", "Lab autorizado"],
-    attackSteps: [
+    "attackSteps": [
       {
-        title: "Lista privilegios",
-        command: "whoami /priv",
-        why: "Confirma que el privilegio está activo antes de seguir.",
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
       },
       {
-        title: "Relaciónalo con SeImpersonate",
-        why: "Si tienes ambos, el camino pedagógico es el mismo: abuso de tokens de servicio → SYSTEM en lab.",
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
       },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
     ],
-    detection: ["Creación de procesos con tokens inusuales desde servicios"],
-    hardening: ["Retirar el privilegio si el rol no lo requiere", "Hardening de cuentas de servicio"],
-    tools: ["whoami"],
-    glossaryTerms: ["token", "primary token"],
-    source: "course",
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-assign-primary-token",
+    "category": "local",
+    "name": "SeAssignPrimaryTokenPrivilege",
+    "shortName": "SeAssignPrimaryToken",
+    "tagline": "Asignar token primario a proceso nuevo.",
+    "oneLiner": "Crear procesos con token de otro como primario.",
+    "whyItMatters": "Junto a SeImpersonate en servicios.",
+    "signature": [
+      "whoami /priv → SeAssignPrimaryToken Enabled"
+    ],
+    "glossaryTerms": [
+      "token"
+    ]
   },
   {
-    id: "se-backup",
-    category: "local",
-    name: "SeBackupPrivilege",
-    shortName: "SeBackup",
-    tagline: "Puedes leer casi cualquier fichero saltándote las ACL ‘porque es backup’.",
-    difficulty: "beginner",
-    oneLiner:
-      "Pensado para software de copia de seguridad: permite leer objetos ignorando permisos de lectura normales.",
-    whyItMatters:
-      "En lab puedes leer SAM/SYSTEM/SECURITY o secretos en disco que un usuario normal no vería → hacia hashes y SYSTEM/DA según el escenario.",
-    signature: ["whoami /priv → SeBackupPrivilege Enabled"],
-    prerequisites: ["Privilegio Enabled", "Rutas conocidas de secretos en el lab"],
-    attackSteps: [
-      {
-        title: "Confirma el privilegio",
-        command: "whoami /priv",
-        why: "Sin SeBackup no hay bypass de lectura por este camino.",
-      },
-      {
-        title: "Piensa qué ficheros importan",
-        why: "En Windows lab: hives del registro, web.config, scripts con credenciales, etc.",
-      },
-      {
-        title: "Lee con herramientas de backup/copia privilegiada del lab",
-        why: "El aprendizaje es: ACL ≠ control total si hay privilegios de backup.",
-      },
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["Lecturas masivas de hives SAM/SYSTEM", "Uso anómalo de APIs de backup"],
-    hardening: ["Limitar SeBackup a cuentas de backup reales", "Auditar acceso a hives sensibles"],
-    tools: ["whoami", "reg save / robocopy (lab)"],
-    glossaryTerms: ["ACL", "SAM", "hive"],
-    source: "course",
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-backup",
+    "category": "local",
+    "name": "SeBackupPrivilege",
+    "shortName": "SeBackup",
+    "tagline": "Leer ficheros saltando ACL (backup).",
+    "oneLiner": "Bypass de lectura pensado para backups.",
+    "whyItMatters": "Lectura de SAM/secretos en lab.",
+    "signature": [
+      "whoami /priv → SeBackup Enabled"
+    ],
+    "glossaryTerms": [
+      "ACL",
+      "SAM"
+    ]
   },
   {
-    id: "se-restore",
-    category: "local",
-    name: "SeRestorePrivilege",
-    shortName: "SeRestore",
-    tagline: "Puedes escribir ficheros saltándote ACL ‘porque es restore’.",
-    difficulty: "beginner",
-    oneLiner: "Complemento de backup: permite escribir/restaurar objetos ignorando ACL de escritura.",
-    whyItMatters:
-      "Escribir donde no deberías (DLL, servicios, tareas) puede ser el puente a SYSTEM en un lab controlado.",
-    signature: ["whoami /priv → SeRestorePrivilege Enabled"],
-    prerequisites: ["Privilegio Enabled", "Objetivo de escritura claro en el lab"],
-    attackSteps: [
-      {
-        title: "Confirma SeRestore",
-        command: "whoami /priv",
-        why: "Verifica Enabled antes de planear escritura.",
-      },
-      {
-        title: "Elige un vector de persistencia/escalada del lab",
-        why: "Ej.: reemplazar un binario que un servicio privilegiado cargue — solo en lab.",
-      },
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["Escrituras privilegiadas fuera de ventanas de restore", "Cambios en binarios de servicios"],
-    hardening: ["Separar cuentas de backup/restore", "Integridad de ficheros críticos (WHQL, firmas, monitoring)"],
-    tools: ["whoami"],
-    glossaryTerms: ["ACL", "servicio"],
-    source: "course",
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-restore",
+    "category": "local",
+    "name": "SeRestorePrivilege",
+    "shortName": "SeRestore",
+    "tagline": "Escribir ficheros saltando ACL (restore).",
+    "oneLiner": "Bypass de escritura para restauración.",
+    "whyItMatters": "Sustitución de binarios/servicios en lab.",
+    "signature": [
+      "whoami /priv → SeRestore Enabled"
+    ],
+    "glossaryTerms": [
+      "ACL"
+    ]
   },
   {
-    id: "se-debug",
-    category: "local",
-    name: "SeDebugPrivilege",
-    shortName: "SeDebug",
-    tagline: "Puedes depurar (y tocar) procesos de otros, incluidos los del sistema.",
-    difficulty: "beginner",
-    oneLiner: "Pensado para depuradores: abre la puerta a leer memoria y tokens de procesos privilegiados.",
-    whyItMatters:
-      "Con SeDebug, puede abrir procesos como LSASS en lab y extraer credenciales — salto enorme de privilegios.",
-    signature: ["whoami /priv → SeDebugPrivilege Enabled", "A menudo en cuentas de admin local o herramientas de IT"],
-    prerequisites: ["Privilegio Enabled", "Lab autorizado (nunca en producción sin permiso)"],
-    attackSteps: [
-      {
-        title: "Confirma SeDebug",
-        command: "whoami /priv",
-        why: "Es la firma clara de este vector.",
-      },
-      {
-        title: "Entiende el objetivo pedagógico",
-        why: "LSASS guarda secretos de autenticación. Leerla en lab explica por qué SeDebug es peligroso.",
-      },
-      {
-        title: "Usa solo herramientas del lab documentadas",
-        why: "Mimikatz/procdump etc. solo en entornos de práctica autorizados.",
-      },
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["Apertura de LSASS", "Herramientas de dump de memoria", "SeDebug en cuentas no admin"],
-    hardening: ["Quitar SeDebug a usuarios innecesarios", "Credential Guard / PPL donde aplique", "EDR en LSASS"],
-    tools: ["whoami", "herramientas de dump (solo lab)"],
-    glossaryTerms: ["LSASS", "hash", "token"],
-    source: "course",
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-debug",
+    "category": "local",
+    "name": "SeDebugPrivilege",
+    "shortName": "SeDebug",
+    "tagline": "Depurar procesos del sistema.",
+    "oneLiner": "Abrir procesos privilegiados (p.ej. LSASS).",
+    "whyItMatters": "Dump de credenciales en lab.",
+    "signature": [
+      "whoami /priv → SeDebug Enabled"
+    ],
+    "glossaryTerms": [
+      "LSASS"
+    ]
   },
   {
-    id: "se-take-ownership",
-    category: "local",
-    name: "SeTakeOwnershipPrivilege",
-    shortName: "SeTakeOwnership",
-    tagline: "Puedes convertirte en dueño de casi cualquier objeto.",
-    difficulty: "beginner",
-    oneLiner: "Te permite tomar ownership de ficheros, claves de registro, etc., y luego cambiar permisos.",
-    whyItMatters:
-      "Ownership → cambias DACL → lees/escribes lo que antes estaba bloqueado. Camino lento pero potente en lab.",
-    signature: ["whoami /priv → SeTakeOwnershipPrivilege Enabled"],
-    prerequisites: ["Privilegio Enabled"],
-    attackSteps: [
-      {
-        title: "Confirma el privilegio",
-        command: "whoami /priv",
-        why: "Sin él no puedes forzar ownership por este mecanismo.",
-      },
-      {
-        title: "Toma ownership y ajusta ACL en el objeto del lab",
-        command: "takeown /f <ruta> & icacls <ruta> /grant %USERNAME%:F",
-        why: "Primero dueño, luego permisos. Dos pasos mentales claros.",
-      },
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["Eventos de cambio de owner", "Modificaciones de ACL en objetos sensibles"],
-    hardening: ["Limitar el privilegio", "Auditar cambios de ownership en paths críticos"],
-    tools: ["takeown", "icacls"],
-    glossaryTerms: ["owner", "DACL", "ACL"],
-    source: "course",
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "takeown /f <ruta>"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-take-ownership",
+    "category": "local",
+    "name": "SeTakeOwnershipPrivilege",
+    "shortName": "SeTakeOwnership",
+    "tagline": "Tomar posesión de objetos.",
+    "oneLiner": "Ownership → reescribir DACL.",
+    "whyItMatters": "Acceso a lo bloqueado por ACL.",
+    "signature": [
+      "whoami /priv → SeTakeOwnership Enabled"
+    ],
+    "glossaryTerms": [
+      "owner",
+      "DACL"
+    ]
   },
   {
-    id: "se-load-driver",
-    category: "local",
-    name: "SeLoadDriverPrivilege",
-    shortName: "SeLoadDriver",
-    tagline: "Puedes cargar o descargar drivers del kernel.",
-    difficulty: "intermediate",
-    oneLiner: "Permite cargar controladores. Un driver malicioso en lab = código en kernel = control total de la máquina.",
-    whyItMatters: "Es un privilegio ‘casi SYSTEM’ si puedes cargar un driver vulnerable o malicioso en el lab.",
-    signature: ["whoami /priv → SeLoadDriverPrivilege Enabled"],
-    prerequisites: ["Privilegio Enabled", "Entorno lab (riesgo alto de BSOD)"],
-    attackSteps: [
-      {
-        title: "Confirma SeLoadDriverPrivilege",
-        command: "whoami /priv",
-        why: "Firma del vector.",
-      },
-      {
-        title: "Estudia el abuso solo con drivers de lab documentados",
-        why: "El objetivo es entender por qué este privilegio no debe estar en usuarios normales.",
-      },
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["Carga de drivers no firmados / fuera de política", "Eventos Code Integrity"],
-    hardening: ["Driver Signature Enforcement", "Retirar el privilegio", "HVCI donde sea viable"],
-    tools: ["whoami"],
-    glossaryTerms: ["kernel", "driver"],
-    source: "course",
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-load-driver",
+    "category": "local",
+    "name": "SeLoadDriverPrivilege",
+    "shortName": "SeLoadDriver",
+    "tagline": "Cargar drivers del kernel.",
+    "oneLiner": "Código en kernel = control de la máquina.",
+    "whyItMatters": "Privilegio casi-SYSTEM.",
+    "signature": [
+      "whoami /priv → SeLoadDriver Enabled"
+    ],
+    "glossaryTerms": [
+      "kernel"
+    ]
   },
   {
-    id: "se-manage-volume",
-    category: "local",
-    name: "SeManageVolumePrivilege",
-    shortName: "SeManageVolume",
-    tagline: "Puedes gestionar volúmenes de disco a bajo nivel.",
-    difficulty: "intermediate",
-    oneLiner: "Operaciones de mantenimiento de volúmenes; en escenarios de lab puede usarse para leer datos crudos del disco.",
-    whyItMatters:
-      "Menos ‘famoso’ que SeDebug, pero permite caminos creativos de lectura de datos que las ACL de fichero bloquean.",
-    signature: ["whoami /priv → SeManageVolumePrivilege Enabled"],
-    prerequisites: ["Privilegio Enabled"],
-    attackSteps: [
-      {
-        title: "Confirma el privilegio",
-        command: "whoami /priv",
-        why: "Primer filtro.",
-      },
-      {
-        title: "Investiga técnicas de lab documentadas para este privilegio",
-        why: "Aprende el concepto: control del volumen ≠ solo ‘formatear disco’.",
-      },
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["APIs de volume management inusuales desde procesos de usuario"],
-    hardening: ["No conceder a usuarios estándar", "Monitorear herramientas de disco"],
-    tools: ["whoami"],
-    glossaryTerms: ["volumen", "ACL"],
-    source: "course",
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-manage-volume",
+    "category": "local",
+    "name": "SeManageVolumePrivilege",
+    "shortName": "SeManageVolume",
+    "tagline": "Gestionar volúmenes a bajo nivel.",
+    "oneLiner": "Operaciones de volumen más allá de ficheros.",
+    "whyItMatters": "Lectura creativa saltando ACL.",
+    "signature": [
+      "whoami /priv → SeManageVolume Enabled"
+    ],
+    "glossaryTerms": [
+      "volumen"
+    ]
   },
   {
-    id: "se-tcb",
-    category: "local",
-    name: "SeTcbPrivilege",
-    shortName: "SeTcb",
-    tagline: "Actuar como parte del sistema operativo (Trusted Computing Base).",
-    difficulty: "intermediate",
-    oneLiner: "Uno de los privilegios más sensibles: permite operaciones reservadas al ‘núcleo de confianza’ de Windows.",
-    whyItMatters: "Si una cuenta lo tiene, asume compromiso casi total de la máquina. En labs es señal de ‘game over’ local.",
-    signature: ["whoami /priv → SeTcbPrivilege Enabled"],
-    prerequisites: ["Casi nunca en usuarios normales; si lo ves, investiga por qué"],
-    attackSteps: [
-      {
-        title: "Si lo ves Enabled, documenta el hallazgo",
-        command: "whoami /priv",
-        why: "Pedagógicamente: reconocer peligro > explotar a ciegas.",
-      },
-      {
-        title: "Pregunta de blue team",
-        why: "¿Qué software o GPO lo concedió? Eso es el valor del aprendizaje.",
-      },
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["Cualquier uso de SeTcb fuera de cuentas de sistema"],
-    hardening: ["Nunca asignar a usuarios interactivos", "Auditar privilegios privilegiados con frecuencia"],
-    tools: ["whoami", "secpol / GPO review"],
-    glossaryTerms: ["TCB", "SYSTEM"],
-    source: "course",
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-tcb",
+    "category": "local",
+    "name": "SeTcbPrivilege",
+    "shortName": "SeTcb",
+    "tagline": "Actuar como parte del SO (TCB).",
+    "oneLiner": "Operaciones del Trusted Computing Base.",
+    "whyItMatters": "Señal de compromiso casi total.",
+    "signature": [
+      "whoami /priv → SeTcb Enabled"
+    ],
+    "glossaryTerms": [
+      "TCB"
+    ]
   },
   {
-    id: "se-create-token",
-    category: "local",
-    name: "SeCreateTokenPrivilege",
-    shortName: "SeCreateToken",
-    tagline: "Puedes crear tokens de acceso arbitrarios.",
-    difficulty: "intermediate",
-    oneLiner: "Permite fabricar tokens con los grupos/privilegios que elijas (en el modelo de seguridad de Windows).",
-    whyItMatters: "Crear un token Admin/SYSTEM en lab = escalada directa. Extremadamente sensible.",
-    signature: ["whoami /priv → SeCreateTokenPrivilege Enabled"],
-    prerequisites: ["Privilegio raro en cuentas normales"],
-    attackSteps: [
-      {
-        title: "Confirma presencia",
-        command: "whoami /priv",
-        why: "Firma rara: si aparece, es crítico.",
-      },
-      {
-        title: "Estudia creación de tokens solo en lab guiado",
-        why: "Prioriza entender el modelo de tokens de Windows.",
-      },
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["APIs de creación de tokens desde procesos no sistema"],
-    hardening: ["No asignar este privilegio", "Revisar plantillas de derechos de usuario"],
-    tools: ["whoami"],
-    glossaryTerms: ["token", "SID"],
-    source: "course",
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-create-token",
+    "category": "local",
+    "name": "SeCreateTokenPrivilege",
+    "shortName": "SeCreateToken",
+    "tagline": "Crear tokens arbitrarios.",
+    "oneLiner": "Fabricar tokens con grupos elegidos.",
+    "whyItMatters": "Escalada directa en lab.",
+    "signature": [
+      "whoami /priv → SeCreateToken Enabled"
+    ],
+    "glossaryTerms": [
+      "token",
+      "SID"
+    ]
   },
   {
-    id: "se-security",
-    category: "local",
-    name: "SeSecurityPrivilege",
-    shortName: "SeSecurity",
-    tagline: "Puedes gestionar el registro de seguridad (Security log).",
-    difficulty: "beginner",
-    oneLiner: "Permite gestionar auditorías y el log de seguridad: ver, limpiar o configurar auditoría.",
-    whyItMatters:
-      "No siempre da SYSTEM solo, pero permite borrar huellas o manipular auditoría — impacto blue team enorme.",
-    signature: ["whoami /priv → SeSecurityPrivilege Enabled"],
-    prerequisites: ["Privilegio Enabled"],
-    attackSteps: [
-      {
-        title: "Confirma el privilegio",
-        command: "whoami /priv",
-        why: "Identifica capacidad sobre el Security log.",
-      },
-      {
-        title: "En lab: observa el Security log y qué eventos importan",
-        why: "Aprende qué vería un defensor — y por qué este privilegio es sensible.",
-      },
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["Limpieza del Security log", "Cambios de política de auditoría"],
-    hardening: ["Limitar a admins de auditoría", "SIEM inmutable / forwarding externo"],
-    tools: ["whoami", "wevtutil (lab)"],
-    glossaryTerms: ["Security log", "auditoría"],
-    source: "course",
-  },
-
-  // ─── Kerberos (OCD) ────────────────────────────────────────────
-  {
-    id: "asrep-roast",
-    category: "kerberos",
-    name: "AS-REP Roasting",
-    shortName: "AS-REP",
-    tagline: "Usuarios sin preauth Kerberos → puedes pedir un blob crackeable.",
-    difficulty: "beginner",
-    oneLiner:
-      "Si un usuario tiene ‘Do not require Kerberos preauthentication’, cualquiera puede pedir un AS-REP y atacar la clave offline.",
-    whyItMatters: "Credenciales de dominio sin necesidad de password previa del objetivo — típico en labs GOAD/HTB.",
-    signature: [
-      "BloodHound / LDAP: DONT_REQ_PREAUTH",
-      "GetNPUsers encuentra usuarios vulnerables",
-    ],
-    prerequisites: ["Usuario de dominio (a veces incluso sin creds, según lab)", "Hashcat/John en tu máquina de ataque"],
-    attackSteps: [
+    "attackSteps": [
       {
-        title: "Enumera usuarios sin preauth",
-        command: "impacket-GetNPUsers domain/ -dc-ip <DC> -usersfile users.txt -format hashcat",
-        why: "Obtiene AS-REP si el usuario es vulnerable.",
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "whoami /priv"
       },
       {
-        title: "Rompe el hash offline",
-        why: "No tocas más el DC: el cracking es local. Luego validas la password en lab.",
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
       },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
     ],
-    detection: ["AS-REQ/AS-REP anómalos", "Cuentas con preauth deshabilitado"],
-    hardening: ["Exigir preauthentication", "Contraseñas fuertes / MFA"],
-    tools: ["impacket-GetNPUsers", "hashcat"],
-    glossaryTerms: ["AS-REP", "preauthentication", "TGT"],
-    source: "ocd",
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Quitar el privilegio si no hace falta",
+      "Auditar User Rights Assignment"
+    ],
+    "tools": [
+      "whoami"
+    ],
+    "source": "course",
+    "id": "se-security",
+    "category": "local",
+    "name": "SeSecurityPrivilege",
+    "shortName": "SeSecurity",
+    "tagline": "Gestionar el Security log.",
+    "oneLiner": "Ver/limpiar/configurar auditoría.",
+    "whyItMatters": "Impacto blue team: borrar huellas.",
+    "signature": [
+      "whoami /priv → SeSecurity Enabled"
+    ],
+    "glossaryTerms": [
+      "auditoría"
+    ]
   },
   {
-    id: "kerberoasting",
-    category: "kerberos",
-    name: "Kerberoasting",
-    shortName: "Kerberoast",
-    tagline: "Pides TGS de cuentas con SPN y las crackeas offline.",
-    difficulty: "beginner",
-    oneLiner:
-      "Cualquier usuario autenticado puede solicitar tickets de servicio (TGS) de cuentas con SPN y atacar ese material offline.",
-    whyItMatters: "Camino clásico a credenciales de service accounts → movimiento lateral / DA en labs.",
-    signature: [
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "reg query HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer /v AlwaysInstallElevated"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "reg",
+      "msiexec"
+    ],
+    "source": "ocd",
+    "id": "always-install-elevated",
+    "category": "local",
+    "name": "AlwaysInstallElevated",
+    "shortName": "AlwaysInstallElevated",
+    "tagline": "MSI se instalan como SYSTEM.",
+    "oneLiner": "Si AlwaysInstallElevated=1 en HKLM y HKCU, cualquier usuario puede instalar MSI como SYSTEM.",
+    "whyItMatters": "Escalada local clásica en labs mal hardenizados.",
+    "signature": [
+      "reg query HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer /v AlwaysInstallElevated",
+      "Ambas claves = 0x1"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "wmic service get name,pathname"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "wmic",
+      "sc"
+    ],
+    "source": "ocd",
+    "id": "unquoted-service-path",
+    "category": "local",
+    "name": "Unquoted Service Path",
+    "shortName": "UnquotedPath",
+    "tagline": "Ruta de servicio sin comillas → hijack.",
+    "oneLiner": "Si el binPath tiene espacios y no va entre comillas, Windows puede ejecutar otro .exe intermedio.",
+    "whyItMatters": "Escritura en rutas intermedias permite SYSTEM al reiniciar el servicio.",
+    "signature": [
+      "wmic service get name,pathname",
+      "Path con espacios sin comillas"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "sc qc <servicio>"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "accesschk",
+      "sc"
+    ],
+    "source": "ocd",
+    "id": "weak-service-permissions",
+    "category": "local",
+    "name": "Weak Service Permissions",
+    "shortName": "WeakServiceACL",
+    "tagline": "Puedes modificar un servicio privilegiado.",
+    "oneLiner": "ACL débiles en el servicio permiten cambiar binPath o reiniciarlo.",
+    "whyItMatters": "Cambio de binPath → SYSTEM.",
+    "signature": [
+      "accesschk/sc sdshow: WRITE_DAC/CHANGE_CONFIG a Users"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "Procmon"
+    ],
+    "source": "ocd",
+    "id": "dll-hijacking",
+    "category": "local",
+    "name": "DLL Hijacking",
+    "shortName": "DllHijack",
+    "tagline": "Un proceso privilegiado carga tu DLL.",
+    "oneLiner": "Si un servicio busca DLLs en rutas escribibles, colocas una maliciosa en lab.",
+    "whyItMatters": "Código en proceso SYSTEM/Admin.",
+    "signature": [
+      "Procmon: NAME NOT FOUND en ruta escribible"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "schtasks /query /fo LIST /v"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "schtasks"
+    ],
+    "source": "ocd",
+    "id": "scheduled-task-abuse",
+    "category": "local",
+    "name": "Scheduled Task Abuse",
+    "shortName": "SchTask",
+    "tagline": "Tareas programadas modificables o hijackables.",
+    "oneLiner": "Tareas SYSTEM con acciones/ACL débiles permiten ejecutar código privilegiado.",
+    "whyItMatters": "Persistencia y escalada local frecuentes en labs.",
+    "signature": [
+      "schtasks /query /fo LIST /v",
+      "ACL de escritura en acción o carpeta"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "impacket-GetNPUsers domain/ -dc-ip <DC> -usersfile users.txt -format hashcat"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-GetNPUsers",
+      "hashcat"
+    ],
+    "source": "ocd",
+    "id": "asrep-roast",
+    "category": "kerberos",
+    "name": "AS-REP Roasting",
+    "shortName": "AS-REP",
+    "tagline": "Usuarios sin preauth → blob crackeable.",
+    "oneLiner": "DONT_REQ_PREAUTH permite pedir AS-REP y atacar offline.",
+    "whyItMatters": "Credenciales de dominio sin password del objetivo.",
+    "signature": [
+      "LDAP/BH: DONT_REQ_PREAUTH",
+      "GetNPUsers encuentra usuarios"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "impacket-GetUserSPNs domain/user:pass -dc-ip <DC> -request"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-GetUserSPNs",
+      "Rubeus",
+      "hashcat"
+    ],
+    "source": "ocd",
+    "id": "kerberoasting",
+    "category": "kerberos",
+    "name": "Kerberoasting",
+    "shortName": "Kerberoast",
+    "tagline": "TGS de SPN → crack offline.",
+    "oneLiner": "Cualquier usuario autenticado puede pedir TGS de cuentas con SPN.",
+    "whyItMatters": "Service accounts débiles → movimiento lateral/DA.",
+    "signature": [
       "Cuentas con servicePrincipalName",
-      "GetUserSPNs / Rubeus kerberoast",
-    ],
-    prerequisites: ["Credenciales de dominio válidas", "Permiso para atacar el lab"],
-    attackSteps: [
-      {
-        title: "Lista SPNs y pide TGS",
-        command: "impacket-GetUserSPNs domain/user:pass -dc-ip <DC> -request",
-        why: "El TGS contiene material derivable de la password del service account.",
-      },
-      {
-        title: "Crackea offline y reutiliza en lab",
-        why: "Firma pedagógica: enum → roast → crack → usar creds.",
-      },
-    ],
-    detection: ["Muchos TGS-REQ hacia SPNs distintos", "Cuentas de servicio con passwords débiles"],
-    hardening: ["Passwords largas / gMSA", "Monitorear roasting patterns"],
-    tools: ["impacket-GetUserSPNs", "Rubeus", "hashcat"],
-    glossaryTerms: ["SPN", "TGS", "service account"],
-    source: "ocd",
+      "GetUserSPNs -request"
+    ]
   },
   {
-    id: "unconstrained-delegation",
-    category: "delegation",
-    name: "Unconstrained Delegation",
-    shortName: "Unconstrained",
-    tagline: "El servidor guarda TGT de quienes se conectan → puedes reutilizarlos.",
-    difficulty: "intermediate",
-    oneLiner:
-      "Un computer/user con unconstrained delegation puede impersonar a cualquiera que autentique contra él (incluido un DA si lo engañas).",
-    whyItMatters: "Combinado con coerce (PrinterBug/PetitPotam) es un camino famoso a DA en labs.",
-    signature: [
-      "BloodHound: UnconstrainedDelegation / TrustedForDelegation",
-      "msDS-AllowedToDelegateTo vacío pero TRUSTED_FOR_DELEGATION",
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    prerequisites: ["Control admin del host con unconstrained", "Forma de hacer que un privilegiado autentique"],
-    attackSteps: [
+    "attackSteps": [
       {
-        title: "Identifica hosts con unconstrained",
-        why: "BloodHound o LDAP. Anótalo como objetivo de alto valor.",
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "impacket-getTGT domain/user -hashes :<NThash>"
       },
       {
-        title: "En lab: fuerza auth + extrae tickets",
-        why: "Aprende la cadena: coerce → ticket en memoria → reutilización.",
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
       },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
     ],
-    detection: ["TRUSTED_FOR_DELEGATION innecesario", "Coerce + acceso a hosts de delegación"],
-    hardening: ["Eliminar unconstrained", "Preferir constrained/RBCD acotado", "Protecciones de coerce"],
-    tools: ["BloodHound", "Rubeus", "impacket"],
-    glossaryTerms: ["TGT", "delegation", "coerce"],
-    source: "ocd",
-  },
-  {
-    id: "constrained-delegation",
-    category: "delegation",
-    name: "Constrained Delegation",
-    shortName: "Constrained",
-    tagline: "Delegación limitada a servicios concretos (S4U).",
-    difficulty: "intermediate",
-    oneLiner: "La cuenta puede impersonar usuarios hacia SPNs concretos configurados en AD.",
-    whyItMatters: "Si controlas esa cuenta, puedes acceder a esos servicios como otro usuario (a veces CIFS/LDAP/HTTP).",
-    signature: ["msDS-AllowedToDelegateTo poblado", "BloodHound: AllowedToDelegate"],
-    prerequisites: ["Credenciales/hash de la cuenta con constrained delegation"],
-    attackSteps: [
-      {
-        title: "Lee a qué SPNs puede delegar",
-        why: "El mapa de impacto son esos servicios, no ‘todo el dominio’.",
-      },
-      {
-        title: "S4U2Self/S4U2Proxy en lab",
-        why: "Entiende el salto cuenta → servicio objetivo.",
-      },
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
     ],
-    detection: ["Cambios en msDS-AllowedToDelegateTo", "Uso anómalo de S4U"],
-    hardening: ["Revisar delegaciones", "Principio de mínimo privilegio en SPNs"],
-    tools: ["BloodHound", "impacket-getST", "Rubeus"],
-    glossaryTerms: ["S4U", "SPN", "delegation"],
-    source: "ocd",
-  },
-  {
-    id: "rbcd",
-    category: "delegation",
-    name: "Resource-Based Constrained Delegation",
-    shortName: "RBCD",
-    tagline: "El recurso decide quién puede delegar hacia él.",
-    difficulty: "intermediate",
-    oneLiner:
-      "Si puedes escribir msDS-AllowedToActOnBehalfOfOtherIdentity en un computer, configuras RBCD y te haces pasar por usuarios hacia ese host.",
-    whyItMatters: "Abuso típico tras GenericWrite/WriteAccountRestrictions sobre machine accounts.",
-    signature: [
-      "BloodHound: AddAllowedToAct / GenericWrite a Computer",
-      "Atributo msDS-AllowedToActOnBehalfOfOtherIdentity",
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
     ],
-    prerequisites: ["Permiso de escritura sobre el computer object objetivo", "Machine account controlada"],
-    attackSteps: [
-      {
-        title: "Confirma permiso de escritura sobre el computer",
-        why: "Sin Write, no hay RBCD por este camino.",
-      },
-      {
-        title: "Configura AllowedToAct y pide servicio",
-        why: "Cadena pedagógica: ACL → RBCD → ticket → acceso admin local del host.",
-      },
+    "tools": [
+      "impacket-getTGT",
+      "Rubeus"
     ],
-    detection: ["Cambios en msDS-AllowedToActOnBehalfOfOtherIdentity"],
-    hardening: ["Auditar escrituras a computer objects", "Limitar quién puede unir/modificar machines"],
-    tools: ["BloodHound", "impacket-rbcd", "Rubeus"],
-    glossaryTerms: ["RBCD", "machine account", "ACL"],
-    source: "ocd",
+    "source": "ocd",
+    "id": "overpass-the-hash",
+    "category": "kerberos",
+    "name": "Overpass-the-Hash",
+    "shortName": "OPTH",
+    "tagline": "NT hash → TGT Kerberos.",
+    "oneLiner": "Con NT hash pides TGT (sin usar NTLM hacia el destino).",
+    "whyItMatters": "Puente hash → tickets para el resto del ataque.",
+    "signature": [
+      "Tienes NT hash",
+      "getTGT / Rubeus asktgt"
+    ]
   },
-
-  // ─── ACL ───────────────────────────────────────────────────────
   {
-    id: "force-change-password",
-    category: "acl",
-    name: "ForceChangePassword",
-    shortName: "ForceChangePassword",
-    tagline: "Puedes resetear la password de otro usuario sin saber la actual.",
-    difficulty: "beginner",
-    oneLiner: "Permiso AD que permite forzar cambio de contraseña sobre un usuario objetivo.",
-    whyItMatters: "Camino corto a la identidad de esa cuenta. Ideal para aprender ACL con impacto claro.",
-    signature: ["BloodHound: ForceChangePassword", "AllExtendedRights / User-Force-Change-Password"],
-    prerequisites: ["Sesión LDAP/RPC con el permiso"],
-    attackSteps: [
-      {
-        title: "Confirma el edge en BloodHound",
-        why: "Visualiza quién → quién.",
-      },
-      {
-        title: "Reset controlado en lab",
-        command: "net rpc password <user> -U domain/attacker%pass -S <DC>",
-        why: "Luego inicia sesión como el objetivo. Avisa al equipo del lab: cambiaste una password.",
-      },
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
     ],
-    detection: ["Eventos 4724 (reset password)", "Cambios de ACL en usuarios"],
-    hardening: ["Revisar quién tiene ForceChangePassword", "Privileged Access Workstations"],
-    tools: ["BloodHound", "net rpc", "bloodyAD"],
-    glossaryTerms: ["ACL", "ACE"],
-    source: "ocd",
-  },
-  {
-    id: "generic-all",
-    category: "acl",
-    name: "GenericAll",
-    shortName: "GenericAll",
-    tagline: "Control total sobre un objeto AD (usuario, grupo, computer…).",
-    difficulty: "beginner",
-    oneLiner: "Equivalent a ‘Full Control’ sobre ese objeto: puedes cambiar casi cualquier atributo o membresía.",
-    whyItMatters: "Sobre un grupo privilegiado o usuario → escalada directa. Sobre computer → a menudo RBCD.",
-    signature: ["BloodHound: GenericAll"],
-    prerequisites: ["Permiso GenericAll sobre el objeto"],
-    attackSteps: [
+    "attackSteps": [
       {
-        title: "Mira el tipo de objeto",
-        why: "Usuario ≠ grupo ≠ computer. El siguiente paso depende del tipo.",
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
       },
       {
-        title: "Elige la acción mínima que gana el lab",
-        why: "Ej.: añadirte a un grupo, reset password, o preparar RBCD.",
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
       },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
     ],
-    detection: ["Cambios de ACL", "Altas en grupos privilegiados"],
-    hardening: ["Auditoría de ACL privilegiadas", "Limpiar ACL heredadas peligrosas"],
-    tools: ["BloodHound", "dacledit", "bloodyAD"],
-    glossaryTerms: ["GenericAll", "ACL"],
-    source: "ocd",
-  },
-  {
-    id: "write-dacl",
-    category: "acl",
-    name: "WriteDACL",
-    shortName: "WriteDACL",
-    tagline: "Puedes reescribir la lista de permisos del objeto.",
-    difficulty: "intermediate",
-    oneLiner: "Si puedes escribir la DACL, te puedes dar GenericAll y luego hacer lo que necesites.",
-    whyItMatters: "Es ‘permiso para conseguir más permisos’. Paso intermedio muy didáctico.",
-    signature: ["BloodHound: WriteDacl"],
-    prerequisites: ["WriteDACL sobre el objeto"],
-    attackSteps: [
-      {
-        title: "Concédete GenericAll en lab",
-        why: "WriteDACL → GenericAll → acción final (password reset, group add, etc.).",
-      },
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
     ],
-    detection: ["Modificación de DACL (Eventos Directory Service)"],
-    hardening: ["Proteger DACL de objetos sensibles", "AdminSDHolder awareness"],
-    tools: ["BloodHound", "dacledit"],
-    glossaryTerms: ["DACL", "ACL"],
-    source: "ocd",
-  },
-  {
-    id: "dcsync",
-    category: "acl",
-    name: "DCSync",
-    shortName: "DCSync",
-    tagline: "Replicar secretos del DC como si fueras un controlador de dominio.",
-    difficulty: "intermediate",
-    oneLiner:
-      "Con DS-Replication-Get-Changes(+All) puedes pedir hashes al DC (incl. krbtgt) vía protocolo de replicación.",
-    whyItMatters: "Casi siempre = Domain Admin efectivo. Ideal para cerrar un lab de AD.",
-    signature: [
-      "BloodHound: GetChanges + GetChangesAll → DCSync",
-      "Membresía en Dominios Admins / Equivalent ACL",
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
     ],
-    prerequisites: ["Permisos de replicación o DA", "Lab autorizado"],
-    attackSteps: [
-      {
-        title: "Confirma derechos de replicación",
-        why: "Sin GetChanges/GetChangesAll no hay DCSync.",
-      },
-      {
-        title: "Secretsdump solo en lab",
-        command: "impacket-secretsdump domain/user:pass@<DC>",
-        why: "Objetivo pedagógico: ver NTDS/hashes y entender el impacto.",
-      },
+    "tools": [
+      "Rubeus",
+      "mimikatz",
+      "impacket"
     ],
-    detection: ["Replicación desde hosts no-DC", "Alertas AD sobre DCSync"],
-    hardening: ["Auditar privilegios de replicación", "Tiering / PAW", "Detección específica DCSync"],
-    tools: ["impacket-secretsdump", "Mimikatz lsadump::dcsync"],
-    glossaryTerms: ["DCSync", "NTDS", "krbtgt"],
-    source: "ocd",
+    "source": "ocd",
+    "id": "pass-the-ticket",
+    "category": "kerberos",
+    "name": "Pass-the-Ticket",
+    "shortName": "PTT",
+    "tagline": "Reutilizar un TGT/TGS robado.",
+    "oneLiner": "Importas un ticket Kerberos en tu sesión y actúas como esa identidad.",
+    "whyItMatters": "Movimiento lateral sin password en claro.",
+    "signature": [
+      ".kirbi / ccache en memoria",
+      "Rubeus ptt / export"
+    ]
   },
   {
-    id: "shadow-credentials",
-    category: "acl",
-    name: "Shadow Credentials",
-    shortName: "ShadowCreds",
-    tagline: "Escribes KeyCredentials y te autenticas con certificado/clave.",
-    difficulty: "intermediate",
-    oneLiner:
-      "Si puedes escribir msDS-KeyCredentialLink, añades una clave y obtienes TGT como esa cuenta (PKINIT).",
-    whyItMatters: "Alternativa moderna a password reset cuando hay WriteProperty sobre el usuario/computer.",
-    signature: ["BloodHound: AddKeyCredentialLink / Write agudo a KeyCredentialLink"],
-    prerequisites: ["Escritura del atributo", "PKINIT disponible en el lab"],
-    attackSteps: [
-      {
-        title: "Confirma el permiso sobre KeyCredentialLink",
-        why: "Es la firma concreta de este vector.",
-      },
-      {
-        title: "Añade shadow creds y autentica en lab",
-        why: "Cadena: ACL → clave → TGT → acceso.",
-      },
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Hash krbtgt (p.ej. tras DCSync)",
+      "Lab autorizado"
     ],
-    detection: ["Cambios en msDS-KeyCredentialLink"],
-    hardening: ["Auditar el atributo", "Limitar quién puede escribirlo"],
-    tools: ["pywhisker", "Whisker", "certipy"],
-    glossaryTerms: ["PKINIT", "KeyCredentialLink"],
-    source: "ocd",
-  },
-
-  // ─── Stubs / bridge ────────────────────────────────────────────
-  {
-    id: "petitpotam-relay",
-    category: "coerce",
-    name: "Coerce + NTLM Relay",
-    shortName: "Coerce/Relay",
-    tagline: "Fuerzas autenticación y la reenvías a un servicio que no exige firmas.",
-    difficulty: "intermediate",
-    oneLiner: "Técnicas como PetitPotam engañan a un host para autenticarse; el relay convierte eso en acceso.",
-    whyItMatters: "Pieza central del mindmap OCD junto a ADCS ESC8 y LDAP signing.",
-    signature: ["Listener ntlmrelayx", "Coerce exitoso hacia tu IP"],
-    prerequisites: ["Posición de red en el lab", "Objetivo sin firmas/EPA según caso"],
-    attackSteps: [
+    "attackSteps": [
       {
-        title: "Aprende el patrón: coerce → relay → servicio",
-        why: "No memorices un CVE: entiende el flujo.",
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
       },
-    ],
-    detection: ["Autenticaciones coerce", "Relays hacia LDAP/SMB/HTTP"],
-    hardening: ["SMB/LDAP signing", "EPA", "Parches coerce"],
-    tools: ["ntlmrelayx", "PetitPotam", "printerbug"],
-    source: "ocd",
-    stub: true,
-  },
-  {
-    id: "sam-lsa-dump",
-    category: "creds",
-    name: "SAM / LSA Secrets",
-    shortName: "SAM/LSA",
-    tagline: "Hashes y secretos locales en el host.",
-    difficulty: "beginner",
-    oneLiner: "Con admin local puedes volcar SAM/LSA y reutilizar hashes (PTH) en el lab.",
-    whyItMatters: "Puente entre privilegio local y movimiento lateral.",
-    signature: ["Admin local / SYSTEM", "secretsdump local"],
-    prerequisites: ["Alto privilegio local"],
-    attackSteps: [{ title: "Dump solo en lab", why: "Luego practica Pass-the-Hash con cuidado." }],
-    detection: ["Acceso a hives SAM", "LSASS access"],
-    hardening: ["LAPS", "no reutilizar local admin", "Credential Guard"],
-    tools: ["impacket-secretsdump", "mimikatz"],
-    source: "ocd",
-    stub: true,
-  },
-  {
-    id: "trust-abuse",
-    category: "trusts",
-    name: "Trust Abuse",
-    shortName: "Trusts",
-    tagline: "Abusar de confianzas entre dominios/bosques.",
-    difficulty: "intermediate",
-    oneLiner: "Tickets y SID history a través de trusts pueden convertir un dominio comprometido en otro.",
-    whyItMatters: "Nivel avanzado del mindmap OCD tras DA en un dominio.",
-    signature: ["Trusts enumerados", "Extra SID / Golden Ticket cross-domain"],
-    prerequisites: ["DA o secretos de trust en lab"],
-    attackSteps: [{ title: "Enumera trusts primero", why: "Mapa antes de abuso." }],
-    detection: ["Uso anómalo de trusts", "SID history sospechoso"],
-    hardening: ["Quarantine / selective authentication", "Auditar trusts"],
-    tools: ["raiseChild", "ticketer", "BloodHound"],
-    source: "ocd",
-    stub: true,
-  },
-  {
-    id: "adcs-bridge",
-    category: "adcs",
-    name: "ADCS ESC (lab hermano)",
-    shortName: "ADCS →",
-    tagline: "Los 16 ESC viven en ADCS-ESC-Lab. Aquí solo enlazamos.",
-    difficulty: "beginner",
-    oneLiner:
-      "Active Directory Certificate Services tiene sus propios escenarios ESC1–ESC16. Este superlab no los duplica.",
-    whyItMatters: "Si ves plantillas/CA vulnerables, cambia de lab y sigue el flujo find → signature → ESC.",
-    signature: ["certipy-ad find reporta ESC", "Web Enrollment / plantillas peligrosas"],
-    prerequisites: ["Lab con ADCS"],
-    attackSteps: [
       {
-        title: "Abre ADCS-ESC-Lab",
-        why: "Misma metodología pedagógica, contenido especializado en certificados.",
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
       },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
     ],
-    detection: ["Ver blue team en ADCS-ESC-Lab"],
-    hardening: ["Ver mitigaciones ESC en ADCS-ESC-Lab"],
-    tools: ["certipy-ad"],
-    relatedAdcsLab: true,
-    source: "both",
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-ticketer",
+      "mimikatz",
+      "Rubeus"
+    ],
+    "source": "ocd",
+    "id": "golden-ticket",
+    "category": "kerberos",
+    "name": "Golden Ticket",
+    "shortName": "GoldenTicket",
+    "tagline": "TGT falso firmado con krbtgt.",
+    "oneLiner": "Con hash krbtgt fabricas TGTs para cualquier usuario.",
+    "whyItMatters": "Persistencia DA clásica post-compromiso.",
+    "signature": [
+      "Posees krbtgt NT/AES",
+      "ticketer / mimikatz golden"
+    ]
   },
   {
-    id: "sccm-stub",
-    category: "sccm",
-    name: "SCCM Abuse (próximamente)",
-    shortName: "SCCM",
-    tagline: "Stub: expansión desde mindmap OCD / GOAD-SCCM.",
-    difficulty: "intermediate",
-    oneLiner: "SCCM/MECM introduce credenciales, roles y coerce propios.",
-    whyItMatters: "Muy presente en empresas reales; lo iremos engordando.",
-    signature: ["Infra SCCM en el lab"],
-    prerequisites: ["Lab con SCCM"],
-    attackSteps: [{ title: "Placeholder", why: "Contenido en fases siguientes." }],
-    detection: ["—"],
-    hardening: ["—"],
-    tools: ["—"],
-    source: "ocd",
-    stub: true,
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-ticketer",
+      "mimikatz"
+    ],
+    "source": "ocd",
+    "id": "silver-ticket",
+    "category": "kerberos",
+    "name": "Silver Ticket",
+    "shortName": "SilverTicket",
+    "tagline": "TGS falso para un servicio concreto.",
+    "oneLiner": "Con hash de la cuenta de servicio fabricas TGS hacia ese SPN.",
+    "whyItMatters": "Acceso a un servicio sin tocar tanto el DC.",
+    "signature": [
+      "Hash de machine/service account",
+      "TGS forjado a CIFS/HTTP/..."
+    ]
   },
   {
-    id: "mssql-stub",
-    category: "mssql",
-    name: "MSSQL Abuse (próximamente)",
-    shortName: "MSSQL",
-    tagline: "Stub: links, impersonation y xp_cmdshell en lab.",
-    difficulty: "intermediate",
-    oneLiner: "SQL Server mal configurado puede ser puente a SYSTEM o a otros hosts.",
-    whyItMatters: "Conecta privilegios SeImpersonate con abuso SQL.",
-    signature: ["Acceso SQL + privilegios elevados"],
-    prerequisites: ["Credenciales SQL o Windows auth"],
-    attackSteps: [{ title: "Placeholder", why: "Fase 2." }],
-    detection: ["—"],
-    hardening: ["—"],
-    tools: ["—"],
-    source: "ocd",
-    stub: true,
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "herramientas diamond de lab"
+    ],
+    "source": "ocd",
+    "id": "diamond-ticket",
+    "category": "kerberos",
+    "name": "Diamond Ticket",
+    "shortName": "DiamondTicket",
+    "tagline": "Modificar un TGT legítimo (más sigiloso).",
+    "oneLiner": "En vez de inventar un Golden, alteras un TGT real con clave krbtgt.",
+    "whyItMatters": "Variante moderna más difícil de detectar.",
+    "signature": [
+      "Uso de krbtgt + TGT existente"
+    ]
   },
   {
-    id: "hive-nightmare",
-    category: "misc",
-    name: "HiveNightmare / SeriousSAM",
-    shortName: "HiveNightmare",
-    tagline: "Lectura de SAM por ACL incorrecta (CVE histórico de lab).",
-    difficulty: "beginner",
-    oneLiner: "Un fallo de permisos permitió leer hives sensibles como usuario normal en ciertas builds.",
-    whyItMatters: "Ejemplo perfecto de ‘ACL mal puesta’ fuera de SeBackup.",
-    signature: ["Build vulnerable + ACL en SAM"],
-    prerequisites: ["Lab con imagen vulnerable"],
-    attackSteps: [{ title: "Solo en lab patched-aware", why: "Aprende el concepto de ACL en hives." }],
-    detection: ["Acceso a SAM desde users"],
-    hardening: ["Parches", "ACL correctas en hives"],
-    tools: ["—"],
-    source: "ocd",
-    stub: true,
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "Rubeus"
+    ],
+    "source": "ocd",
+    "id": "unconstrained-delegation",
+    "category": "delegation",
+    "name": "Unconstrained Delegation",
+    "shortName": "Unconstrained",
+    "tagline": "El host guarda TGTs de quien se conecta.",
+    "oneLiner": "TRUSTED_FOR_DELEGATION permite reutilizar TGTs (incl. DA si lo engañas).",
+    "whyItMatters": "Combo clásico con coerce → DA.",
+    "signature": [
+      "BH: UnconstrainedDelegation",
+      "TrustedForDelegation"
+    ]
   },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "impacket-getST",
+      "Rubeus"
+    ],
+    "source": "ocd",
+    "id": "constrained-delegation",
+    "category": "delegation",
+    "name": "Constrained Delegation",
+    "shortName": "Constrained",
+    "tagline": "Delegación limitada a SPNs (S4U).",
+    "oneLiner": "msDS-AllowedToDelegateTo define a qué servicios puede impersonar.",
+    "whyItMatters": "Control de esa cuenta → acceso a esos SPNs como otros usuarios.",
+    "signature": [
+      "AllowedToDelegate / msDS-AllowedToDelegateTo"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "impacket-rbcd -delegate-from ATTACKER$ -delegate-to TARGET$ -dc-ip <DC> domain/user:pass"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-rbcd",
+      "Rubeus",
+      "BloodHound"
+    ],
+    "source": "ocd",
+    "id": "rbcd",
+    "category": "delegation",
+    "name": "Resource-Based Constrained Delegation",
+    "shortName": "RBCD",
+    "tagline": "El recurso decide quién delega hacia él.",
+    "oneLiner": "Escribes msDS-AllowedToActOnBehalfOfOtherIdentity y te haces pasar por usuarios hacia ese host.",
+    "whyItMatters": "Tras GenericWrite a computer → admin local del host.",
+    "signature": [
+      "BH: AddAllowedToAct / GenericWrite a Computer"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "net rpc password <user> -U domain/attacker%pass -S <DC>"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "bloodyAD",
+      "net rpc"
+    ],
+    "source": "ocd",
+    "id": "force-change-password",
+    "category": "acl",
+    "name": "ForceChangePassword",
+    "shortName": "ForceChangePassword",
+    "tagline": "Reseteas password de otro usuario.",
+    "oneLiner": "Permiso AD para forzar cambio de contraseña sin conocer la actual.",
+    "whyItMatters": "Tomas la identidad del objetivo en minutos.",
+    "signature": [
+      "BH: ForceChangePassword"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "dacledit",
+      "bloodyAD"
+    ],
+    "source": "ocd",
+    "id": "generic-all",
+    "category": "acl",
+    "name": "GenericAll",
+    "shortName": "GenericAll",
+    "tagline": "Full Control sobre el objeto AD.",
+    "oneLiner": "Control total: atributos, membresías, resets, etc.",
+    "whyItMatters": "Sobre grupo/user/computer = escalada directa según tipo.",
+    "signature": [
+      "BH: GenericAll"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "bloodyAD"
+    ],
+    "source": "ocd",
+    "id": "generic-write",
+    "category": "acl",
+    "name": "GenericWrite",
+    "shortName": "GenericWrite",
+    "tagline": "Escritura amplia de atributos.",
+    "oneLiner": "Puedes escribir la mayoría de propiedades del objeto.",
+    "whyItMatters": "Camino a Shadow Creds, SPN, scriptPath, RBCD…",
+    "signature": [
+      "BH: GenericWrite"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "dacledit"
+    ],
+    "source": "ocd",
+    "id": "write-dacl",
+    "category": "acl",
+    "name": "WriteDACL",
+    "shortName": "WriteDACL",
+    "tagline": "Reescribes la DACL y te das más permisos.",
+    "oneLiner": "WriteDACL → te concedes GenericAll → acción final.",
+    "whyItMatters": "Permiso para conseguir más permisos.",
+    "signature": [
+      "BH: WriteDacl"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "owneredit"
+    ],
+    "source": "ocd",
+    "id": "write-owner",
+    "category": "acl",
+    "name": "WriteOwner",
+    "shortName": "WriteOwner",
+    "tagline": "Cambias el owner del objeto.",
+    "oneLiner": "Owner puede reescribir DACL → luego GenericAll.",
+    "whyItMatters": "Cadena owner → DACL → abuso.",
+    "signature": [
+      "BH: WriteOwner"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "net group",
+      "bloodyAD"
+    ],
+    "source": "ocd",
+    "id": "add-member",
+    "category": "acl",
+    "name": "AddMember",
+    "shortName": "AddMember",
+    "tagline": "Te añades (o añades a alguien) a un grupo.",
+    "oneLiner": "Permiso de escritura de miembros sobre un grupo.",
+    "whyItMatters": "Grupo privilegiado = escalada inmediata.",
+    "signature": [
+      "BH: AddMember / GenericAll on Group"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound"
+    ],
+    "source": "ocd",
+    "id": "owns",
+    "category": "acl",
+    "name": "Owns",
+    "shortName": "Owns",
+    "tagline": "Eres owner del objeto AD.",
+    "oneLiner": "Como owner puedes tomar control vía DACL.",
+    "whyItMatters": "Misma cadena que WriteOwner si ya eres owner.",
+    "signature": [
+      "BH: Owns"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "impacket-secretsdump domain/user:pass@<DC>"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-secretsdump",
+      "mimikatz"
+    ],
+    "source": "ocd",
+    "id": "dcsync",
+    "category": "acl",
+    "name": "DCSync",
+    "shortName": "DCSync",
+    "tagline": "Replicas secretos del DC.",
+    "oneLiner": "GetChanges+GetChangesAll → hashes vía replicación (incl. krbtgt).",
+    "whyItMatters": "Casi siempre = Domain Admin efectivo.",
+    "signature": [
+      "BH: DCSync / GetChanges+GetChangesAll"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "pywhisker",
+      "Whisker",
+      "certipy"
+    ],
+    "source": "ocd",
+    "id": "shadow-credentials",
+    "category": "acl",
+    "name": "Shadow Credentials",
+    "shortName": "ShadowCreds",
+    "tagline": "KeyCredentials → auth con clave/cert.",
+    "oneLiner": "Escribes msDS-KeyCredentialLink y obtienes TGT vía PKINIT.",
+    "whyItMatters": "Alternativa moderna a reset password.",
+    "signature": [
+      "BH: AddKeyCredentialLink"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "PetitPotam",
+      "ntlmrelayx"
+    ],
+    "source": "ocd",
+    "id": "petitpotam-relay",
+    "category": "coerce",
+    "name": "PetitPotam + Relay",
+    "shortName": "PetitPotam",
+    "tagline": "Coerce MS-EFSRPC → relay NTLM.",
+    "oneLiner": "Fuerzas al host a autenticarse hacia ti y reenvías el NTLM.",
+    "whyItMatters": "Camino famoso a ADCS ESC8 / LDAP/SMB en labs.",
+    "signature": [
+      "PetitPotam OK",
+      "ntlmrelayx escuchando"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "printerbug.py domain/user:pass@target <listener>"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "printerbug.py",
+      "ntlmrelayx"
+    ],
+    "source": "ocd",
+    "id": "printerbug-coerce",
+    "category": "coerce",
+    "name": "PrinterBug Coerce",
+    "shortName": "PrinterBug",
+    "tagline": "MS-RPRN fuerza auth del spooler.",
+    "oneLiner": "printerbug hace que el target autentique a tu listener.",
+    "whyItMatters": "Coerce clásico hacia unconstrained / relay.",
+    "signature": [
+      "Spooler activo",
+      "printerbug.py éxito"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "PetitPotam",
+      "PrinterBug",
+      "ntlmrelayx"
+    ],
+    "source": "ocd",
+    "id": "webdav-coerce",
+    "category": "coerce",
+    "name": "WebDAV Coerce",
+    "shortName": "WebDAVCoerce",
+    "tagline": "Auth HTTP vía WebClient.",
+    "oneLiner": "Con WebClient puedes coerzar autenticación HTTP útil para relay a ADCS/HTTP.",
+    "whyItMatters": "Cuando SMB firmado bloquea, HTTP sigue abierto a veces.",
+    "signature": [
+      "WebClient running",
+      "coerce a http listener"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "Responder",
+      "ntlm_theft"
+    ],
+    "source": "ocd",
+    "id": "scf-lnk-coerce",
+    "category": "coerce",
+    "name": "SCF/LNK Coerce",
+    "shortName": "SCF/LNK",
+    "tagline": "Archivo en share engaña al Explorer.",
+    "oneLiner": ".scf/.lnk/.url en un share hacen que el usuario autentique a tu IP.",
+    "whyItMatters": "Hashes NetNTLM sin phishing complejo.",
+    "signature": [
+      "Responder captura hash al abrir el share"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "ntlmrelayx"
+    ],
+    "source": "ocd",
+    "id": "ntlm-relay-ldap",
+    "category": "coerce",
+    "name": "NTLM Relay → LDAP",
+    "shortName": "RelayLDAP",
+    "tagline": "Relay a LDAP sin signing.",
+    "oneLiner": "Si LDAP signing no está forzado, el relay puede crear/modificar objetos.",
+    "whyItMatters": "RBCD, Shadow Creds, AddMember vía relay.",
+    "signature": [
+      "LDAP signing not required",
+      "ntlmrelayx -t ldap://DC"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "ntlmrelayx"
+    ],
+    "source": "ocd",
+    "id": "ntlm-relay-smb",
+    "category": "coerce",
+    "name": "NTLM Relay → SMB",
+    "shortName": "RelaySMB",
+    "tagline": "Relay a SMB sin firmas.",
+    "oneLiner": "Reenvías NTLM a un host SMB y obtienes sesión autenticada.",
+    "whyItMatters": "Ejecución en el target según privilegios del hash.",
+    "signature": [
+      "SMB signing disabled",
+      "ntlmrelayx -t smb://"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-secretsdump",
+      "mimikatz"
+    ],
+    "source": "ocd",
+    "id": "sam-lsa-dump",
+    "category": "creds",
+    "name": "SAM / LSA Secrets",
+    "shortName": "SAM/LSA",
+    "tagline": "Hashes y secretos locales.",
+    "oneLiner": "Con admin local vuelcas SAM/LSA y reutilizas hashes (PTH).",
+    "whyItMatters": "Puente privilegio local → lateral movement.",
+    "signature": [
+      "Admin local/SYSTEM",
+      "secretsdump local"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "procdump",
+      "mimikatz",
+      "nanodump"
+    ],
+    "source": "ocd",
+    "id": "lsass-dump",
+    "category": "creds",
+    "name": "LSASS Dump",
+    "shortName": "LSASS",
+    "tagline": "Secretos en memoria de LSASS.",
+    "oneLiner": "Dump de LSASS revela credenciales/tickets de sesiones.",
+    "whyItMatters": "Tesoro post-explotación en labs.",
+    "signature": [
+      "SeDebug o SYSTEM",
+      "procdump/mimikatz"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "mimikatz",
+      "SharpDPAPI",
+      "DonPAPI"
+    ],
+    "source": "ocd",
+    "id": "dpapi-secrets",
+    "category": "creds",
+    "name": "DPAPI Secrets",
+    "shortName": "DPAPI",
+    "tagline": "Secretos protegidos por DPAPI del usuario.",
+    "oneLiner": "Con contexto del usuario (o masterkeys) desencriptas credenciales guardadas.",
+    "whyItMatters": "Browser, WiFi, creds de apps.",
+    "signature": [
+      "Carpeta Protect/Credentials",
+      "mimikatz dpapi / sharpdpapi"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "findstr /s /i cpassword \\\\dc\\sysvol\\*.xml"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "Get-GPPPassword",
+      "findstr"
+    ],
+    "source": "ocd",
+    "id": "gpp-passwords",
+    "category": "creds",
+    "name": "GPP Passwords",
+    "shortName": "GPP",
+    "tagline": "cpassword en SYSVOL.",
+    "oneLiner": "Group Policy Preferences antiguas guardaban passwords cifradas con clave pública conocida.",
+    "whyItMatters": "A veces siguen en SYSVOL en labs/legacy.",
+    "signature": [
+      "Groups.xml / Services.xml en SYSVOL",
+      "cpassword="
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "LAPSToolkit",
+      "bloodyAD",
+      "ldapsearch"
+    ],
+    "source": "ocd",
+    "id": "laps-read",
+    "category": "creds",
+    "name": "LAPS Read",
+    "shortName": "LAPS",
+    "tagline": "Lees la password local admin gestionada.",
+    "oneLiner": "Si tienes derecho de lectura sobre ms-Mcs-AdmPwd, lees LAPS.",
+    "whyItMatters": "Admin local de muchos hosts de golpe.",
+    "signature": [
+      "BH/LDAP: Read LAPS password",
+      "ms-Mcs-AdmPwd"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-secretsdump",
+      "ntdsutil"
+    ],
+    "source": "ocd",
+    "id": "ntds-dump",
+    "category": "creds",
+    "name": "NTDS.dit Dump",
+    "shortName": "NTDS",
+    "tagline": "Base de hashes del dominio.",
+    "oneLiner": "Copia/VSS de NTDS.dit (+SYSTEM) permite extraer todos los hashes.",
+    "whyItMatters": "Game over del dominio en lab.",
+    "signature": [
+      "Acceso DA/backup a DC",
+      "secretsdump -ntds"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "mimikatz",
+      "lookupsid"
+    ],
+    "source": "ocd",
+    "id": "sid-history-abuse",
+    "category": "trusts",
+    "name": "SID History Abuse",
+    "shortName": "SIDHistory",
+    "tagline": "SIDs extra en el token cruzando trusts.",
+    "oneLiner": "SID History puede colar privilegios de otro dominio.",
+    "whyItMatters": "Escalada inter-dominio clásica.",
+    "signature": [
+      "Trust + SIDHistory en cuenta",
+      "Extra SIDs en token"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-ticketer",
+      "raiseChild"
+    ],
+    "source": "ocd",
+    "id": "inter-realm-tgt",
+    "category": "trusts",
+    "name": "Inter-Realm TGT",
+    "shortName": "TrustTicket",
+    "tagline": "Ticket de confianza entre reinos.",
+    "oneLiner": "Con secretos del trust fabricas tickets inter-realm.",
+    "whyItMatters": "De dominio hijo/compromiso → padre u otro.",
+    "signature": [
+      "Trust key / trust password hash"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "ticketer"
+    ],
+    "source": "ocd",
+    "id": "forest-trust-abuse",
+    "category": "trusts",
+    "name": "Forest Trust Abuse",
+    "shortName": "ForestTrust",
+    "tagline": "Abusar trust entre bosques.",
+    "oneLiner": "Configuraciones de forest trust permiten caminos cross-forest.",
+    "whyItMatters": "Nivel avanzado tras DA en un forest.",
+    "signature": [
+      "Forest trust enumerado",
+      "BH foreign groups/ACLs"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "certipy-ad"
+    ],
+    "source": "both",
+    "id": "adcs-bridge",
+    "category": "adcs",
+    "name": "ADCS ESC (lab hermano)",
+    "shortName": "ADCS →",
+    "tagline": "ESC1–16 viven en ADCS-ESC-Lab.",
+    "oneLiner": "No duplicamos ESC aquí: si hay PKI vulnerable, cambias de lab.",
+    "whyItMatters": "Misma metodología, contenido especializado en certificados.",
+    "signature": [
+      "certipy find reporta ESC",
+      "Web Enrollment / plantillas"
+    ],
+    "relatedAdcsLab": true
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "certipy-ad find -u user@lab.local -p pass -dc-ip <DC> -stdout"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "certipy-ad",
+      "Certify"
+    ],
+    "source": "both",
+    "id": "adcs-enum-bridge",
+    "category": "adcs",
+    "name": "Enumerar ADCS → puente",
+    "shortName": "ADCS Enum",
+    "tagline": "Primero enumera; luego abre ADCS-ESC-Lab.",
+    "oneLiner": "certipy find / certify find para ver si hay superficie ADCS.",
+    "whyItMatters": "Decide si el camino es certificados u otro vector.",
+    "signature": [
+      "CA visible",
+      "Plantillas listadas"
+    ],
+    "relatedAdcsLab": true
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "sccmhunter",
+      "SharpSCCM",
+      "cmloot"
+    ],
+    "source": "ocd",
+    "id": "sccm-naa",
+    "category": "sccm",
+    "name": "SCCM Network Access Account",
+    "shortName": "SCCM NAA",
+    "tagline": "Credenciales NAA recuperables.",
+    "oneLiner": "NAA mal protegida puede filtrar creds de dominio desde SCCM.",
+    "whyItMatters": "Creds de alto valor en entornos con MECM.",
+    "signature": [
+      "SCCM presente",
+      "NAA en policy/client"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "SharpSCCM",
+      "Console SCCM"
+    ],
+    "source": "ocd",
+    "id": "sccm-admin-site",
+    "category": "sccm",
+    "name": "SCCM Site Admin",
+    "shortName": "SCCM Admin",
+    "tagline": "Admin de sitio → ejecución masiva.",
+    "oneLiner": "Control del site server permite desplegar apps/scripts como SYSTEM en clientes.",
+    "whyItMatters": "Dominio práctico del parque SCCM.",
+    "signature": [
+      "Rol Full Administrator / Site System admin"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "sccmhunter",
+      "ntlmrelayx"
+    ],
+    "source": "ocd",
+    "id": "sccm-coerce",
+    "category": "sccm",
+    "name": "SCCM Coerce",
+    "shortName": "SCCM Coerce",
+    "tagline": "Coerce del site system / clients.",
+    "oneLiner": "Componentes SCCM pueden ser forzados a autenticar hacia ti.",
+    "whyItMatters": "Relay/creds en labs SCCM (GOAD-SCCM).",
+    "signature": [
+      "sccmhunter findings",
+      "coerce a site server"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-mssqlclient",
+      "SQLCMD"
+    ],
+    "source": "ocd",
+    "id": "mssql-xp-cmdshell",
+    "category": "mssql",
+    "name": "MSSQL xp_cmdshell",
+    "shortName": "xp_cmdshell",
+    "tagline": "SQL → comandos OS.",
+    "oneLiner": "Con sysadmin puedes habilitar xp_cmdshell y ejecutar comandos.",
+    "whyItMatters": "De DBA a shell en el host SQL.",
+    "signature": [
+      "sysadmin",
+      "xp_cmdshell"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-mssqlclient"
+    ],
+    "source": "ocd",
+    "id": "mssql-linked-server",
+    "category": "mssql",
+    "name": "MSSQL Linked Servers",
+    "shortName": "LinkedSQL",
+    "tagline": "Saltar a otros SQL enlazados.",
+    "oneLiner": "Linked servers permiten ejecutar consultas/comandos en remotos.",
+    "whyItMatters": "Movimiento lateral entre bases.",
+    "signature": [
+      "sys.servers",
+      "OPENQUERY"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "mssqlclient"
+    ],
+    "source": "ocd",
+    "id": "mssql-impersonation",
+    "category": "mssql",
+    "name": "MSSQL Impersonation",
+    "shortName": "SQL Impersonate",
+    "tagline": "EXECUTE AS usuario privilegiado.",
+    "oneLiner": "Permisos IMPERSONATE permiten actuar como sa/otros.",
+    "whyItMatters": "Escalada dentro de SQL sin ser sysadmin aún.",
+    "signature": [
+      "IMPERSONATE GRANT",
+      "EXECUTE AS LOGIN"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "lab PoC"
+    ],
+    "source": "ocd",
+    "id": "hive-nightmare",
+    "category": "misc",
+    "name": "HiveNightmare / SeriousSAM",
+    "shortName": "HiveNightmare",
+    "tagline": "ACL incorrecta en SAM (CVE lab).",
+    "oneLiner": "Builds vulnerables permitían leer SAM como usuario normal.",
+    "whyItMatters": "Ejemplo perfecto de ACL mal puesta.",
+    "signature": [
+      "Build vulnerable + ACL SAM"
+    ]
+  },
+  {
+    "difficulty": "beginner",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir.",
+        "command": "impacket-addcomputer domain/user:pass -computer-name ATTACKER$ -computer-pass 'Pass123!'"
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "impacket-addcomputer"
+    ],
+    "source": "ocd",
+    "id": "machine-account-quota",
+    "category": "misc",
+    "name": "Machine Account Quota",
+    "shortName": "MAQ",
+    "tagline": "Crear machine accounts (ms-DS-MachineAccountQuota).",
+    "oneLiner": "Por defecto cualquier usuario puede crear hasta 10 computers.",
+    "whyItMatters": "Pieza clave para RBCD/ShadowCreds desde lowpriv.",
+    "signature": [
+      "MachineAccountQuota > 0",
+      "addcomputer.py OK"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "noPac lab tools"
+    ],
+    "source": "ocd",
+    "id": "nopac-concept",
+    "category": "misc",
+    "name": "noPAC (concepto lab)",
+    "shortName": "noPAC",
+    "tagline": "CVE de PAC validation (lab histórico).",
+    "oneLiner": "Fallos de validación del PAC permitían impersonar DA en ciertos parches.",
+    "whyItMatters": "Entender PAC/Kerberos; solo en labs patched-aware.",
+    "signature": [
+      "DC vulnerable documentado en el lab"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "lab PoC"
+    ],
+    "source": "ocd",
+    "id": "printnightmare-lab",
+    "category": "misc",
+    "name": "PrintNightmare (lab)",
+    "shortName": "PrintNightmare",
+    "tagline": "Abuso del spooler (CVE lab).",
+    "oneLiner": "Vulnerabilidades del Print Spooler permitían RCE/LPE en builds afectadas.",
+    "whyItMatters": "Servicio muy expuesto; aprender a apagarlo/auditarlo.",
+    "signature": [
+      "Spooler expuesto",
+      "build vulnerable"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "SharpGPOAbuse"
+    ],
+    "source": "ocd",
+    "id": "gpo-abuse",
+    "category": "misc",
+    "name": "GPO Abuse",
+    "shortName": "GPO Abuse",
+    "tagline": "Editas una GPO y ejecutas en muchos hosts.",
+    "oneLiner": "Write sobre GPO/OU permite desplegar scheduled tasks/scripts privilegiados.",
+    "whyItMatters": "Escalada masiva en el alcance de la GPO.",
+    "signature": [
+      "BH: GenericWrite/Edit on GPO",
+      "GPLink a OU interesante"
+    ]
+  },
+  {
+    "difficulty": "intermediate",
+    "prerequisites": [
+      "Lab autorizado"
+    ],
+    "attackSteps": [
+      {
+        "title": "Confirma la firma",
+        "why": "Valida que estás en este camino antes de seguir."
+      },
+      {
+        "title": "Ejecuta el flujo educativo en lab",
+        "why": "Entiende causa → efecto; no memorices un exploit."
+      },
+      {
+        "title": "Revisa mitigación",
+        "why": "Cierra siempre con detección y hardening."
+      }
+    ],
+    "detection": [
+      "Señales anómalas asociadas a este abuso"
+    ],
+    "hardening": [
+      "Eliminar la misconfiguración",
+      "Monitorear el patrón"
+    ],
+    "tools": [
+      "BloodHound",
+      "dacledit"
+    ],
+    "source": "ocd",
+    "id": "adminsdholder",
+    "category": "acl",
+    "name": "AdminSDHolder Abuse",
+    "shortName": "AdminSDHolder",
+    "tagline": "ACL plantilla de cuentas protegidas.",
+    "oneLiner": "Si puedes escribir AdminSDHolder, propagas ACL peligrosas a cuentas admin.",
+    "whyItMatters": "Persistencia privilegiada en AD.",
+    "signature": [
+      "Write sobre CN=AdminSDHolder",
+      "AdminCount=1"
+    ]
+  }
 ];
 
 export const patchContext: PatchContext = {
-  title: "Hardening: quita privilegios que nadie necesita",
+  title: "Hardening: privilegios, ACL y firmas OCD",
   paragraphs: [
-    "La mayoría de escaladas locales empiezan con un privilegio Se* o un ACL de AD demasiado generoso.",
-    "Antes de ‘herramientas mágicas’, revisa User Rights Assignment y las ACL que BloodHound marca en rojo.",
+    "Inventaria Se* en cuentas de servicio y limpia ACL que BloodHound marca en rojo.",
+    "Cierra roasting (preauth, gMSA), delegaciones unconstrained y coerce/relay (signing/EPA).",
+    "Si hay ADCS, mitiga en el lab hermano ADCS-ESC-Lab. Taxonomía inspirada en Orange Cyberdefense AD mindmap 2025.03.",
   ],
   rule: [
-    "Inventaria whoami /priv en cuentas de servicio",
-    "Elimina SeDebug / SeImpersonate / SeBackup donde no hagan falta",
-    "Corrige GenericAll / WriteDACL / ForceChangePassword injustificados",
-    "Despliega detección para DCSync, roasting y coerce",
+    "whoami /priv en todo foothold",
+    "BloodHound: Generic*, WriteDACL, DCSync, RBCD, AdminSDHolder",
+    "Kerberos: SPN, preauth, tickets anómalos",
+    "Coerce/relay: SMB/LDAP signing + EPA",
+    "SCCM/MSSQL: NAA protegida y xp_cmdshell off",
   ],
   whySid:
-    "Los privilegios y ACL son SIDs + derechos. Entender ‘quién tiene qué’ es más importante que memorizar un exploit.",
+    "Privilegios y ACL son derechos sobre SIDs. Entender quién tiene qué supera memorizar un exploit.",
 };
 
 export const decisionTable: DecisionTable = {
   title: "Si ves esto → mira este vector",
   steps: [
-    "1. ¿Estás en un host Windows? → whoami /priv",
-    "2. ¿Estás en dominio con creds? → enumera SPN, ACL, delegación",
-    "3. ¿Hay ADCS? → salta a ADCS-ESC-Lab",
-    "4. Mitiga siempre al cerrar el lab",
+    "1. Host Windows → whoami /priv / servicios",
+    "2. Dominio → SPN, ACL, delegación, coerce",
+    "3. ADCS → ADCS-ESC-Lab",
+    "4. Mitiga siempre",
   ],
   rows: [
-    { vectorId: "se-impersonate", action: "Servicio con impersonation → técnicas Potato en lab" },
-    { vectorId: "se-debug", action: "SeDebug Enabled → riesgo LSASS; documenta y practica dump solo en lab" },
-    { vectorId: "se-backup", action: "SeBackup → lee secretos saltando ACL" },
-    { vectorId: "asrep-roast", action: "DONT_REQ_PREAUTH → GetNPUsers" },
-    { vectorId: "kerberoasting", action: "SPNs + TGS → crack offline" },
-    { vectorId: "dcsync", action: "GetChanges/GetChangesAll → secretsdump" },
-    { vectorId: "rbcd", action: "Write a computer → RBCD" },
-    { vectorId: "adcs-bridge", action: "Plantillas/CA → ADCS-ESC-Lab" },
-  ],
+  {
+    "vectorId": "se-impersonate",
+    "action": "Puedes impersonar tras auth."
+  },
+  {
+    "vectorId": "se-assign-primary-token",
+    "action": "Asignar token primario a proceso nuevo."
+  },
+  {
+    "vectorId": "se-backup",
+    "action": "Leer ficheros saltando ACL (backup)."
+  },
+  {
+    "vectorId": "se-restore",
+    "action": "Escribir ficheros saltando ACL (restore)."
+  },
+  {
+    "vectorId": "se-debug",
+    "action": "Depurar procesos del sistema."
+  },
+  {
+    "vectorId": "se-take-ownership",
+    "action": "Tomar posesión de objetos."
+  },
+  {
+    "vectorId": "se-load-driver",
+    "action": "Cargar drivers del kernel."
+  },
+  {
+    "vectorId": "se-manage-volume",
+    "action": "Gestionar volúmenes a bajo nivel."
+  },
+  {
+    "vectorId": "se-tcb",
+    "action": "Actuar como parte del SO (TCB)."
+  },
+  {
+    "vectorId": "se-create-token",
+    "action": "Crear tokens arbitrarios."
+  },
+  {
+    "vectorId": "se-security",
+    "action": "Gestionar el Security log."
+  },
+  {
+    "vectorId": "always-install-elevated",
+    "action": "MSI se instalan como SYSTEM."
+  },
+  {
+    "vectorId": "unquoted-service-path",
+    "action": "Ruta de servicio sin comillas → hijack."
+  },
+  {
+    "vectorId": "weak-service-permissions",
+    "action": "Puedes modificar un servicio privilegiado."
+  },
+  {
+    "vectorId": "dll-hijacking",
+    "action": "Un proceso privilegiado carga tu DLL."
+  },
+  {
+    "vectorId": "scheduled-task-abuse",
+    "action": "Tareas programadas modificables o hijackables."
+  },
+  {
+    "vectorId": "asrep-roast",
+    "action": "Usuarios sin preauth → blob crackeable."
+  },
+  {
+    "vectorId": "kerberoasting",
+    "action": "TGS de SPN → crack offline."
+  },
+  {
+    "vectorId": "overpass-the-hash",
+    "action": "NT hash → TGT Kerberos."
+  },
+  {
+    "vectorId": "pass-the-ticket",
+    "action": "Reutilizar un TGT/TGS robado."
+  },
+  {
+    "vectorId": "golden-ticket",
+    "action": "TGT falso firmado con krbtgt."
+  },
+  {
+    "vectorId": "silver-ticket",
+    "action": "TGS falso para un servicio concreto."
+  },
+  {
+    "vectorId": "diamond-ticket",
+    "action": "Modificar un TGT legítimo (más sigiloso)."
+  },
+  {
+    "vectorId": "unconstrained-delegation",
+    "action": "El host guarda TGTs de quien se conecta."
+  },
+  {
+    "vectorId": "constrained-delegation",
+    "action": "Delegación limitada a SPNs (S4U)."
+  },
+  {
+    "vectorId": "rbcd",
+    "action": "El recurso decide quién delega hacia él."
+  },
+  {
+    "vectorId": "force-change-password",
+    "action": "Reseteas password de otro usuario."
+  },
+  {
+    "vectorId": "generic-all",
+    "action": "Full Control sobre el objeto AD."
+  },
+  {
+    "vectorId": "generic-write",
+    "action": "Escritura amplia de atributos."
+  },
+  {
+    "vectorId": "write-dacl",
+    "action": "Reescribes la DACL y te das más permisos."
+  },
+  {
+    "vectorId": "write-owner",
+    "action": "Cambias el owner del objeto."
+  },
+  {
+    "vectorId": "add-member",
+    "action": "Te añades (o añades a alguien) a un grupo."
+  },
+  {
+    "vectorId": "owns",
+    "action": "Eres owner del objeto AD."
+  },
+  {
+    "vectorId": "dcsync",
+    "action": "Replicas secretos del DC."
+  },
+  {
+    "vectorId": "shadow-credentials",
+    "action": "KeyCredentials → auth con clave/cert."
+  },
+  {
+    "vectorId": "petitpotam-relay",
+    "action": "Coerce MS-EFSRPC → relay NTLM."
+  },
+  {
+    "vectorId": "printerbug-coerce",
+    "action": "MS-RPRN fuerza auth del spooler."
+  },
+  {
+    "vectorId": "webdav-coerce",
+    "action": "Auth HTTP vía WebClient."
+  },
+  {
+    "vectorId": "scf-lnk-coerce",
+    "action": "Archivo en share engaña al Explorer."
+  },
+  {
+    "vectorId": "ntlm-relay-ldap",
+    "action": "Relay a LDAP sin signing."
+  },
+  {
+    "vectorId": "ntlm-relay-smb",
+    "action": "Relay a SMB sin firmas."
+  },
+  {
+    "vectorId": "sam-lsa-dump",
+    "action": "Hashes y secretos locales."
+  },
+  {
+    "vectorId": "lsass-dump",
+    "action": "Secretos en memoria de LSASS."
+  },
+  {
+    "vectorId": "dpapi-secrets",
+    "action": "Secretos protegidos por DPAPI del usuario."
+  },
+  {
+    "vectorId": "gpp-passwords",
+    "action": "cpassword en SYSVOL."
+  },
+  {
+    "vectorId": "laps-read",
+    "action": "Lees la password local admin gestionada."
+  },
+  {
+    "vectorId": "ntds-dump",
+    "action": "Base de hashes del dominio."
+  },
+  {
+    "vectorId": "sid-history-abuse",
+    "action": "SIDs extra en el token cruzando trusts."
+  },
+  {
+    "vectorId": "inter-realm-tgt",
+    "action": "Ticket de confianza entre reinos."
+  },
+  {
+    "vectorId": "forest-trust-abuse",
+    "action": "Abusar trust entre bosques."
+  },
+  {
+    "vectorId": "adcs-bridge",
+    "action": "ESC1–16 viven en ADCS-ESC-Lab."
+  },
+  {
+    "vectorId": "adcs-enum-bridge",
+    "action": "Primero enumera; luego abre ADCS-ESC-Lab."
+  },
+  {
+    "vectorId": "sccm-naa",
+    "action": "Credenciales NAA recuperables."
+  },
+  {
+    "vectorId": "sccm-admin-site",
+    "action": "Admin de sitio → ejecución masiva."
+  },
+  {
+    "vectorId": "sccm-coerce",
+    "action": "Coerce del site system / clients."
+  },
+  {
+    "vectorId": "mssql-xp-cmdshell",
+    "action": "SQL → comandos OS."
+  },
+  {
+    "vectorId": "mssql-linked-server",
+    "action": "Saltar a otros SQL enlazados."
+  },
+  {
+    "vectorId": "mssql-impersonation",
+    "action": "EXECUTE AS usuario privilegiado."
+  },
+  {
+    "vectorId": "hive-nightmare",
+    "action": "ACL incorrecta en SAM (CVE lab)."
+  },
+  {
+    "vectorId": "machine-account-quota",
+    "action": "Crear machine accounts (ms-DS-MachineAccountQuota)."
+  },
+  {
+    "vectorId": "nopac-concept",
+    "action": "CVE de PAC validation (lab histórico)."
+  },
+  {
+    "vectorId": "printnightmare-lab",
+    "action": "Abuso del spooler (CVE lab)."
+  },
+  {
+    "vectorId": "gpo-abuse",
+    "action": "Editas una GPO y ejecutas en muchos hosts."
+  },
+  {
+    "vectorId": "adminsdholder",
+    "action": "ACL plantilla de cuentas protegidas."
+  }
+],
 };
 
 export const blueTeam: BlueTeamRow[] = [
   {
-    category: "local",
-    detection: ["Inventario de privilegios anómalos", "EDR en LSASS y Potato"],
-    hardening: ["User Rights Assignment mínimo", "Cuentas de servicio managed"],
+    "category": "local",
+    "detection": [
+      "Inventario y alertas típicas de Local / Se*",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de Local / Se*",
+      "Auditar cambios y privilegios de forma continua"
+    ]
   },
   {
-    category: "kerberos",
-    detection: ["Patrones de roasting", "Cuentas sin preauth"],
-    hardening: ["gMSA", "preauth obligatorio", "passwords largas en SPN"],
+    "category": "kerberos",
+    "detection": [
+      "Inventario y alertas típicas de Kerberos",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de Kerberos",
+      "Auditar cambios y privilegios de forma continua"
+    ]
   },
   {
-    category: "acl",
-    detection: ["BloodHound continuous / ACL baselines", "DCSync alerts"],
-    hardening: ["Limpiar ACL privilegiadas", "Tier model"],
+    "category": "acl",
+    "detection": [
+      "Inventario y alertas típicas de ACL / ACE",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de ACL / ACE",
+      "Auditar cambios y privilegios de forma continua"
+    ]
   },
   {
-    category: "delegation",
-    detection: ["Cambios en delegation attributes"],
-    hardening: ["Eliminar unconstrained", "RBCD justificado"],
+    "category": "delegation",
+    "detection": [
+      "Inventario y alertas típicas de Delegation",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de Delegation",
+      "Auditar cambios y privilegios de forma continua"
+    ]
   },
   {
-    category: "adcs",
-    detection: ["Ver ADCS-ESC-Lab"],
-    hardening: ["Ver ADCS-ESC-Lab"],
+    "category": "coerce",
+    "detection": [
+      "Inventario y alertas típicas de Coerce / Relay",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de Coerce / Relay",
+      "Auditar cambios y privilegios de forma continua"
+    ]
   },
+  {
+    "category": "creds",
+    "detection": [
+      "Inventario y alertas típicas de Credentials",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de Credentials",
+      "Auditar cambios y privilegios de forma continua"
+    ]
+  },
+  {
+    "category": "trusts",
+    "detection": [
+      "Inventario y alertas típicas de Trusts",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de Trusts",
+      "Auditar cambios y privilegios de forma continua"
+    ]
+  },
+  {
+    "category": "adcs",
+    "detection": [
+      "Inventario y alertas típicas de ADCS",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de ADCS",
+      "Auditar cambios y privilegios de forma continua"
+    ]
+  },
+  {
+    "category": "sccm",
+    "detection": [
+      "Inventario y alertas típicas de SCCM",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de SCCM",
+      "Auditar cambios y privilegios de forma continua"
+    ]
+  },
+  {
+    "category": "mssql",
+    "detection": [
+      "Inventario y alertas típicas de MSSQL",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de MSSQL",
+      "Auditar cambios y privilegios de forma continua"
+    ]
+  },
+  {
+    "category": "misc",
+    "detection": [
+      "Inventario y alertas típicas de Misc / Labs",
+      "Correlacionar con BloodHound / logs de seguridad"
+    ],
+    "hardening": [
+      "Reducir superficie de Misc / Labs",
+      "Auditar cambios y privilegios de forma continua"
+    ]
+  }
 ];
 
 export const cheatSheet: CheatSheet = {
-  title: "Cheat sheet · firmas rápidas",
+  title: "Cheat sheet · firmas rápidas (curso + OCD)",
   intro: [
-    "No memorices herramientas: reconoce la firma y luego abre la ficha.",
-    "Solo labs autorizados.",
+    "Reconoce la firma y abre la ficha. Solo labs autorizados.",
+    "Taxonomía inspirada en Orange Cyberdefense AD mindmap 2025.03.",
   ],
   blocks: [
-    {
-      title: "Local",
-      lines: [
-        "whoami /priv → SeImpersonate/SeDebug/SeBackup…",
-        "Servicio web/SQL + impersonate → Potato (lab)",
-      ],
-    },
-    {
-      title: "Kerberos",
-      lines: [
-        "GetNPUsers → AS-REP",
-        "GetUserSPNs -request → Kerberoast",
-      ],
-    },
-    {
-      title: "ACL",
-      lines: [
-        "ForceChangePassword / GenericAll / WriteDACL",
-        "GetChanges+GetChangesAll → DCSync",
-      ],
-    },
-    {
-      title: "ADCS",
-      lines: ["certipy-ad find → ADCS-ESC-Lab"],
-    },
-  ],
+  {
+    "title": "Local / Se*",
+    "lines": [
+      "SeImpersonate: whoami /priv → SeImpersonate Enabled",
+      "SeAssignPrimaryToken: whoami /priv → SeAssignPrimaryToken Enabled",
+      "SeBackup: whoami /priv → SeBackup Enabled",
+      "SeRestore: whoami /priv → SeRestore Enabled",
+      "SeDebug: whoami /priv → SeDebug Enabled",
+      "SeTakeOwnership: whoami /priv → SeTakeOwnership Enabled",
+      "SeLoadDriver: whoami /priv → SeLoadDriver Enabled",
+      "SeManageVolume: whoami /priv → SeManageVolume Enabled"
+    ]
+  },
+  {
+    "title": "Kerberos",
+    "lines": [
+      "AS-REP: LDAP/BH: DONT_REQ_PREAUTH",
+      "Kerberoast: Cuentas con servicePrincipalName",
+      "OPTH: Tienes NT hash",
+      "PTT: .kirbi / ccache en memoria",
+      "GoldenTicket: Posees krbtgt NT/AES",
+      "SilverTicket: Hash de machine/service account",
+      "DiamondTicket: Uso de krbtgt + TGT existente"
+    ]
+  },
+  {
+    "title": "ACL / ACE",
+    "lines": [
+      "ForceChangePassword: BH: ForceChangePassword",
+      "GenericAll: BH: GenericAll",
+      "GenericWrite: BH: GenericWrite",
+      "WriteDACL: BH: WriteDacl",
+      "WriteOwner: BH: WriteOwner",
+      "AddMember: BH: AddMember / GenericAll on Group",
+      "Owns: BH: Owns",
+      "DCSync: BH: DCSync / GetChanges+GetChangesAll"
+    ]
+  },
+  {
+    "title": "Delegation",
+    "lines": [
+      "Unconstrained: BH: UnconstrainedDelegation",
+      "Constrained: AllowedToDelegate / msDS-AllowedToDelegateTo",
+      "RBCD: BH: AddAllowedToAct / GenericWrite a Computer"
+    ]
+  },
+  {
+    "title": "Coerce / Relay",
+    "lines": [
+      "PetitPotam: PetitPotam OK",
+      "PrinterBug: Spooler activo",
+      "WebDAVCoerce: WebClient running",
+      "SCF/LNK: Responder captura hash al abrir el share",
+      "RelayLDAP: LDAP signing not required",
+      "RelaySMB: SMB signing disabled"
+    ]
+  },
+  {
+    "title": "Credentials",
+    "lines": [
+      "SAM/LSA: Admin local/SYSTEM",
+      "LSASS: SeDebug o SYSTEM",
+      "DPAPI: Carpeta Protect/Credentials",
+      "GPP: Groups.xml / Services.xml en SYSVOL",
+      "LAPS: BH/LDAP: Read LAPS password",
+      "NTDS: Acceso DA/backup a DC"
+    ]
+  },
+  {
+    "title": "Trusts",
+    "lines": [
+      "SIDHistory: Trust + SIDHistory en cuenta",
+      "TrustTicket: Trust key / trust password hash",
+      "ForestTrust: Forest trust enumerado"
+    ]
+  },
+  {
+    "title": "ADCS",
+    "lines": [
+      "ADCS →: certipy find reporta ESC",
+      "ADCS Enum: CA visible"
+    ]
+  },
+  {
+    "title": "SCCM",
+    "lines": [
+      "SCCM NAA: SCCM presente",
+      "SCCM Admin: Rol Full Administrator / Site System admin",
+      "SCCM Coerce: sccmhunter findings"
+    ]
+  },
+  {
+    "title": "MSSQL",
+    "lines": [
+      "xp_cmdshell: sysadmin",
+      "LinkedSQL: sys.servers",
+      "SQL Impersonate: IMPERSONATE GRANT"
+    ]
+  },
+  {
+    "title": "Misc / Labs",
+    "lines": [
+      "HiveNightmare: Build vulnerable + ACL SAM",
+      "MAQ: MachineAccountQuota > 0",
+      "noPAC: DC vulnerable documentado en el lab",
+      "PrintNightmare: Spooler expuesto",
+      "GPO Abuse: BH: GenericWrite/Edit on GPO"
+    ]
+  }
+],
 };
